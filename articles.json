@@ -90,7 +90,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 0
+    "majorOrder": 1
   },
   {
     "id": "art-2",
@@ -104,7 +104,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 1,
-    "majorOrder": 1
+    "majorOrder": 2
   },
   {
     "id": "art-3",
@@ -118,6 +118,6 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 2,
-    "majorOrder": 2
+    "majorOrder": 0
   }
 ]
