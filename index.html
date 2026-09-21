@@ -286,6 +286,9 @@
                     <button onclick="resetToDefaultData()" title="초기 데이터로 다시 돌리기" class="admin-only inline-flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-600 w-10 h-10 rounded-lg text-sm font-medium transition">
                         <i class="fa-solid fa-rotate-right"></i>
                     </button>
+                                         <button onclick="exportArticlesJson()" title="기사 목록을 articles.json 파일로 내려받기" class="admin-only inline-flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-600 w-10 h-10 rounded-lg text-sm font-medium transition">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
                 </div>
             </div>
 
@@ -733,6 +736,7 @@
             setTodayInputDate();
             renderAll();
             initShMediaLatest();
+            loadArticlesFromServer();
             setTimeout(() => refreshMissingMetadata(), 500);
             if (isPopoutAdminWindow) {
                 openManageModal();
@@ -1158,7 +1162,37 @@
                 } catch (e) { console.warn('기존 기사 보완 실패:', article.url, e); }
             }
         }
-
+async function loadArticlesFromServer() {
+    try {
+        const res = await fetch('articles.json?v=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) return false;
+        const data = await res.json();
+        if (!Array.isArray(data) || data.length === 0) return false;
+        articles = data;
+        articles.forEach(a => {
+            if (typeof a.isMajor !== 'boolean') a.isMajor = !!a.isFeatured;
+        });
+        ensureDisplayOrders();
+        syncFeaturedFromMajors();
+        saveArticles();
+        renderAll();
+        return true;
+    } catch (e) {
+        console.warn('articles.json 불러오기 실패:', e);
+        return false;
+    }
+}
+         function exportArticlesJson() {
+    if (!isAdmin) return;
+    const blob = new Blob([JSON.stringify(articles, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'articles.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    showToast('articles.json 파일을 내려받았습니다. GitHub에 올려주세요.');
+}
         function loadArticles() {
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
