@@ -805,7 +805,7 @@
         }
 
         async function fetchShMediaPage(page) {
-            const target = `${SH_MEDIA_CATEGORY_URL}?page=${page}`;
+            const target = `${SH_MEDIA_CATEGORY_URL}?page=${page}&_t=${Date.now()}`;
             // 모든 경로를 동시에 요청하고, 가장 먼저 기사 목록을 가져온 응답을 사용 (순차 대기 제거)
             const attempts = [
                 ['direct', async () => parseShMediaHtml(await fetchText(target, 8000), target)],
