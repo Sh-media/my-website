@@ -614,7 +614,7 @@
         const SH_MEDIA_CATEGORY_URL = 'https://radio20.net/category';
         const SH_MEDIA_CACHE_KEY = 'siheung_bottom_latest_v1';
         // 배치 순서: 왼쪽 5개 → 가운데 4개(대표 1 + 목록 3) → 오른쪽 4개, 최신글 순서대로 채움
-        const SH_MEDIA_COLUMN_SIZES = [5, 4, 4];
+        const SH_MEDIA_COLUMN_SIZES = [5, 4, 5];
         const SH_MEDIA_TOTAL = SH_MEDIA_COLUMN_SIZES.reduce((a, b) => a + b, 0);
         const SH_MEDIA_REFRESH_MS = 5 * 60 * 1000; // 5분마다 자동 갱신
         let shMediaItems = [];
