@@ -307,6 +307,7 @@
                     <div id="tickerList" class="ticker-list"></div>
                 </div>
             </div>
+                         <span id="weatherBox" class="hidden text-xs font-semibold text-slate-600 whitespace-nowrap shrink-0 self-end sm:self-center"></span>
             <span class="text-xs text-slate-400 shrink-0 self-end sm:self-center" id="currentDateStr"></span>
         </div>
 
@@ -738,6 +739,8 @@
             initShMediaLatest();
             loadArticlesFromServer();
             loadBannersFromServer();
+             loadSiheungWeather();
+            setInterval(loadSiheungWeather, WEATHER_REFRESH_MS);
             setTimeout(() => refreshMissingMetadata(), 500);
             if (isPopoutAdminWindow) {
                 openManageModal();
@@ -1478,7 +1481,57 @@ async function loadBannersFromServer() {
                 showToast('기본 데이터로 초기화되었습니다.');
             }
         }
+// ===== 시흥시 날씨 (Open-Meteo) =====
+const WEATHER_LAT = 37.38;
+const WEATHER_LON = 126.80;
+const WEATHER_REFRESH_MS = 30 * 60 * 1000; // 30분마다 갱신
 
+function weatherInfo(code) {
+    if (code === 0) return ['☀️', '맑음'];
+    if (code === 1) return ['🌤️', '대체로 맑음'];
+    if (code === 2) return ['⛅', '구름 많음'];
+    if (code === 3) return ['☁️', '흐림'];
+    if (code === 45 || code === 48) return ['🌫️', '안개'];
+    if (code >= 51 && code <= 57) return ['🌦️', '이슬비'];
+    if (code >= 61 && code <= 67) return ['🌧️', '비'];
+    if (code >= 71 && code <= 77) return ['❄️', '눈'];
+    if (code >= 80 && code <= 82) return ['🌦️', '소나기'];
+    if (code === 85 || code === 86) return ['🌨️', '눈 소나기'];
+    if (code >= 95) return ['⛈️', '뇌우'];
+    return ['🌡️', '날씨'];
+}
+
+async function loadSiheungWeather() {
+    const box = document.getElementById('weatherBox');
+    if (!box) return;
+    try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}`
+            + `&current=temperature_2m,weather_code`
+            + `&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max`
+            + `&timezone=Asia%2FSeoul&forecast_days=1`;
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const cur = data.current;
+        const day = data.daily;
+        if (!cur) throw new Error('데이터 없음');
+
+        const [icon, text] = weatherInfo(cur.weather_code);
+        const temp = Math.round(cur.temperature_2m);
+        const min = day && day.temperature_2m_min ? Math.round(day.temperature_2m_min[0]) : null;
+        const max = day && day.temperature_2m_max ? Math.round(day.temperature_2m_max[0]) : null;
+        const pop = day && day.precipitation_probability_max ? day.precipitation_probability_max[0] : null;
+
+        let html = `${icon} 시흥 <span class="text-slate-900">${temp}°</span> ${text}`;
+        if (min !== null && max !== null) html += ` <span class="text-slate-400 font-medium">· ${min}° / ${max}°</span>`;
+        if (pop !== null) html += ` <span class="text-slate-400 font-medium">· 강수 ${pop}%</span>`;
+        box.innerHTML = html;
+        box.title = '시흥시 날씨 (제공: Open-Meteo)';
+        box.classList.remove('hidden');
+    } catch (e) {
+        console.warn('날씨 불러오기 실패:', e);
+    }
+}
         function initDateDisplay() {
             const now = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' };
