@@ -1,13 +1,5 @@
 {
-  "newsBanners": [
-    {
-      "id": "banner-1789891680158",
-      "label": "드라마공작실",
-      "url": "https://cafe.daum.net/radio20/Dhsb/63",
-      "image": "https://github.com/Sh-media/my-website/blob/main/drmftr_bn1.png?raw=true",
-      "newTab": true
-    }
-  ],
+  "newsBanners": [],
   "bottomBanners": [],
   "newsBannerSlot": {
     "enabled": true,
