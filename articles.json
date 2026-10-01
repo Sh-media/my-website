@@ -8,9 +8,10 @@
     "category": "시정/행정",
     "date": "2026-10-01",
     "summary": "시흥시(시장 임병택)가 국내외 우수기업과 첨단전략기업의 투자유치를 촉진하고 양질의 일자리 창출을 확대하기 위해 투자기업 지원체계를 대폭 강화한다.\n \n시는 ‘시흥시 투자유치 촉진 조례’ 전부개정조례를 10월 1일 공포·시행하고, 투자 규모와 고용 창출에 따른 인센티브를 본격 운영한다고 밝혔다. 이번 개정은 정부의 국가첨단전략산업 육성 기조에 발맞춰 시흥시를 미래 첨단산업 거점으로 육성하고, 기업의 투자부터 고용 창출, 사후관리까지 체계적으로 지원하기 위해 추진됐다.",
-    "isFeatured": false,
-    "isMajor": false,
-    "latestOrder": 0
+    "isFeatured": true,
+    "isMajor": true,
+    "latestOrder": 0,
+    "majorOrder": 0
   },
   {
     "id": "art-1790665377899",
@@ -21,10 +22,10 @@
     "category": "시정/행정",
     "date": "2026-09-29",
     "summary": "지난 6·3 지방선거로 새로 선출된 시흥시의회 초선 의원 9명의 재산이 공개됐다. 경기도공직자윤리위원회가 29일 공개한 재산등록 자료에 따르면 이들의 평균 신고 재산은 9억4915만2000원으로 집계됐다. 경기도공직자윤리위원회는 재산공개 대상자의 등록재산 공개와 재산등록사항 심사를 담",
-    "isFeatured": true,
+    "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 0
+    "majorOrder": 1
   },
   {
     "id": "art-1790563527605",
@@ -78,7 +79,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 1
+    "majorOrder": 2
   },
   {
     "id": "art-1789994662866",
@@ -133,7 +134,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 2
+    "majorOrder": 3
   },
   {
     "id": "art-2",
