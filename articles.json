@@ -1,19 +1,5 @@
 [
   {
-    "id": "art-1791772603264",
-    "press": "중앙일보",
-    "title": "서울대, 시흥캠퍼스로 가는 첫 학과는?…“학사운영위 안건 통과, 학생 의견 수렴”",
-    "url": "https://www.joongang.co.kr/article/25468906",
-    "thumbnail": "https://assets.joongang.co.kr/images/share/ja-opengraph-img.png",
-    "category": "사회/지역",
-    "date": "2026-10-12",
-    "summary": "서울대가 시흥캠퍼스 설립을 위한 첫 삽을 뜬 지 10년 만에 처음으로 대학원 일부 학과를 이전하는 안을 검토 중이다.",
-    "isFeatured": true,
-    "isMajor": true,
-    "latestOrder": 0,
-    "majorOrder": 0
-  },
-  {
     "id": "art-1791520510005",
     "press": "블로터",
     "title": "스타링크가 뚫은 ‘하늘길 인터넷’…아시아나항공서 직접 써보니 [현장+]",
@@ -22,7 +8,7 @@
     "category": "시정/행정",
     "date": "2026-10-09",
     "summary": "인천 도착 예정 시간이 오후 5시18분으로 나오는데 김 서방은 시간이 애매할 거 같아. 혹시 마중 나올 수 있어?\"\n\n이달 4일(현지시간) 미국 뉴욕 JFK공항에서 인천으로 향하던 아시아나항공 OZ221편. 출발이 지연되면서 도착 예정 시간도 늦어졌다. 공항으로 마중 나오기로 한 남편에게 기내 모니터에 표시된 도착 예정 시간을 사진으로 찍어 보냈다. 남편이 시간을 맞추기 어려울 것 같아 부모님에게도 카카오톡으로 연락했다. 결과적으로 남편 대신 부모님이 공항으로 마중을 나오게 됐다. 원활한 소통이었다. 예전 같으면 인천에 착륙해서야 전화를 돌려 해결했을 일이다.",
-    "isFeatured": false,
+    "isFeatured": true,
     "isMajor": true,
     "latestOrder": 0,
     "majorOrder": 2
