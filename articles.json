@@ -8,9 +8,10 @@
     "category": "사회/지역",
     "date": "2026-11-04",
     "summary": "시흥 월곶역세권 도시개발사업의 첫 용지 매각이 시작되면서 역세권 주거·생활거점 조성에 속도가 붙을 전망이다. 약 1150세대의 주택 건립이 가능한 주상복합용지가 공급 대상으로, 향후 철도교통 확충과 남부권 첨단산업 육계획을 연계한 개발 가능성에도 관심이 쏠리고 있다.",
-    "isFeatured": false,
-    "isMajor": false,
-    "latestOrder": 0
+    "isFeatured": true,
+    "isMajor": true,
+    "latestOrder": 0,
+    "majorOrder": 0
   },
   {
     "id": "art-1793591358255",
@@ -34,10 +35,10 @@
     "category": "사회/지역",
     "date": "2026-11-02",
     "summary": "경기 시흥시 한국공학대학교에서 학생이 직접 전공을 설계해 이수하는 첫 사례가 나왔다. 한국공학대는 자기설계전공 공모전을 통해 선발된 학생 3명이 2027학년도 1학기부터 자신이 설계한 교육과정을 이수할 예정이라고 2일 밝혔다.",
-    "isFeatured": true,
+    "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 0
+    "majorOrder": 1
   },
   {
     "id": "art-1793432923461",
@@ -51,7 +52,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 1
+    "majorOrder": 2
   },
   {
     "id": "art-1793069757177",
@@ -65,7 +66,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 2
+    "majorOrder": 3
   },
   {
     "id": "art-1792982660900",
