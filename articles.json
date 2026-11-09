@@ -8,9 +8,10 @@
     "category": "시정/행정",
     "date": "2026-11-09",
     "summary": "주택 2,300세대 공급 ‘산업·주거·광역교통을 연계한 도시 조성’\n시흥도시공사는 시흥시 월곶동 520-5번지 일원의 월곶역세권 도시개발사업 기공식을 11월 18일 개최하고 본격적인 사업추진에 나선다고 밝혔다.\n기공식은 시흥시의 오랜 숙원사업인 월곶역세권 도시개발사업의 본격적인 출발을 알리는 자리다. 약 23만 5,780㎡ 규모로 조성될 바이오션시티는, 산업·연구 기반과 주거 기능을 연계해 기업과 연구인력이 모이고 지역경제 활성화와 양질의 일자리 창출로 이어지는 바이오 허브 구축을 목표로 한다.\n주거시설은 임대주택과 분양주택 각각 1,150세대씩 총 2,300세대 규모로 공급할 예정이다. 산업 기반과 정주 여건을 함께 갖춰 주거 안정에 기여하고, 일자리와",
-    "isFeatured": false,
-    "isMajor": false,
-    "latestOrder": 0
+    "isFeatured": true,
+    "isMajor": true,
+    "latestOrder": 0,
+    "majorOrder": 0
   },
   {
     "id": "art-1793760936150",
@@ -48,9 +49,9 @@
     "category": "사회/지역",
     "date": "2026-11-04",
     "summary": "시흥 월곶역세권 도시개발사업의 첫 용지 매각이 시작되면서 역세권 주거·생활거점 조성에 속도가 붙을 전망이다. 약 1150세대의 주택 건립이 가능한 주상복합용지가 공급 대상으로, 향후 철도교통 확충과 남부권 첨단산업 육계획을 연계한 개발 가능성에도 관심이 쏠리고 있다.",
-    "isFeatured": true,
-    "isMajor": true,
-    "latestOrder": 0,
+    "isFeatured": false,
+    "isMajor": false,
+    "latestOrder": 8,
     "majorOrder": 1
   },
   {
@@ -92,7 +93,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 2
+    "majorOrder": 1
   },
   {
     "id": "art-1793069757177",
@@ -106,7 +107,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 3
+    "majorOrder": 2
   },
   {
     "id": "art-1792115718092",
