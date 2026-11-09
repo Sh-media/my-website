@@ -11,7 +11,7 @@
     "isFeatured": true,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 3
+    "majorOrder": 1
   },
   {
     "id": "art-1794192118618",
@@ -66,7 +66,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 1
+    "majorOrder": 2
   },
   {
     "id": "art-1793069757177",
@@ -80,7 +80,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 2
+    "majorOrder": 3
   },
   {
     "id": "art-1792115718092",
