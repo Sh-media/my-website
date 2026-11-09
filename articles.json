@@ -8,9 +8,10 @@
     "category": "사회/지역",
     "date": "2026-11-09",
     "summary": "전세사기로 보증금을 돌려받지 못해 벼랑 끝에 몰린 피해자들을 위해 국가가 최소한의 회복 자금을 보장하는 ‘최소보장제’가 오는 13일부터 본격 시행된다. 국토교통부는 제도 시행에 앞서 10일부터 한국토지주택공사(LH)를 통해 온라인 신청 접수를 받는다고 밝혔다.\n이번 제도는 법적·현실적 한계로 보증금을 한 푼도 건지기 어려운 사각지대 피해자들에게 국가 차원의 최소 안전망을 제공하기 위해 마련됐다.\n이미지=Antigravity\n**◆ 모든 세입자 지원? “단순 역",
-    "isFeatured": false,
-    "isMajor": false,
-    "latestOrder": 1
+    "isFeatured": true,
+    "isMajor": true,
+    "latestOrder": 1,
+    "majorOrder": 1
   },
   {
     "id": "art-1794192470305",
@@ -21,10 +22,10 @@
     "category": "시정/행정",
     "date": "2026-11-09",
     "summary": "시흥시(시장 임병택)는 지난 5일 국토교통부에 신천~신림선과 GTX-C 오이도역 연장 사업을 제5차 국가철도망 구축계획에 반영해 줄 것을 건의했다고 밝혔다.\n \n신천~신림선은 시흥 신천역에서 관악구 신림역까지 연결하는 약 16.4㎞ 규모의 광역철도 구상이다. 시흥에서 광명과 서울 서남권을 잇는 동서축 철도망으로, 지역 간 철도 연결성을 강화하기 위한 사업이다.",
-    "isFeatured": true,
+    "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 1
+    "majorOrder": 2
   },
   {
     "id": "art-1794192118618",
@@ -79,7 +80,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
-    "majorOrder": 2
+    "majorOrder": 3
   },
   {
     "id": "art-1793069757177",
