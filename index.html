@@ -106,77 +106,114 @@
         .news-banner-label { font-size: 13px; font-weight: 700; color: #334155; }
         .bottom-text-link { min-height: 58px; display: flex; align-items: center; gap: 10px; padding: 0 24px; font-size: 13px; font-weight: 700; color: #334155; border: 1px solid #e2e8f0; background: #fff; border-radius: 8px; }
         .bottom-text-link:hover { color: #1e40af; }
-        /* ===== 하단: 시흥미디어 최신 기사 3단 배치 ===== */
-        .line-clamp-3 {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .line-clamp-6 {
-            display: -webkit-box;
-            -webkit-line-clamp: 6;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+        /* ===== 하단: 시흥미디어 최신 기사 3단 배치 (조선일보·중앙일보 스타일) ===== */
+        .sh-grid-container {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-top: 3px solid #0f172a;
+            border-radius: 8px;
+            padding: 20px 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
         .sh-grid {
-            --sh-cols: 1fr 2fr 1fr;
+            --sh-cols: 1fr 1.6fr 1fr;
             display: grid;
             grid-template-columns: var(--sh-cols);
-            background: #fff;
-            border-radius: 8px;
-            padding: 6px 24px;
+            gap: 0;
         }
-        .sh-col { min-width: 0; padding: 0 24px; }
+        .sh-col { min-width: 0; padding: 0 20px; }
         .sh-col:first-child { padding-left: 0; }
         .sh-col:last-child { padding-right: 0; }
-        .sh-col + .sh-col { border-left: 1px solid #e5e7eb; }
+        .sh-col + .sh-col { border-left: 1px solid #f1f5f9; }
+
+        /* 세련된 폰트 두께와 자간: 너무 두껍지 않고 가독성 높은 폰트 */
         .sh-item {
             display: block;
-            padding: 18px 0;
-            border-top: 1px solid #e5e7eb;
-            color: #111827;
+            padding: 12px 0;
+            border-top: 1px solid #f1f5f9;
+            color: #1e293b;
+            transition: all 0.15s ease;
         }
-        .sh-item:first-child { border-top: 0; }
+        .sh-item:first-child { border-top: 0; padding-top: 0; }
         .sh-item:hover .sh-title,
         .sh-item:hover .sh-hero-title { color: #1d4ed8; }
-        .sh-item-thumb { display: flex; gap: 14px; align-items: flex-start; }
-        .sh-item-thumb .sh-title { flex: 1; min-width: 0; }
+
+        .sh-item-thumb { display: flex; gap: 12px; align-items: flex-start; padding-bottom: 14px; }
+        .sh-item-thumb .sh-title {
+            flex: 1;
+            min-width: 0;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.45;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+        }
         .sh-thumb-img {
             flex: none;
-            width: 84px;
-            height: 64px;
+            width: 80px;
+            height: 56px;
             object-fit: cover;
-            background: #f1f5f9;
+            border-radius: 6px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* 텍스트 기사: 블릿(·) 기호와 정제된 폰트 크기 14px, 500/600 굵기 */
+        .sh-item-text {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            padding: 9px 0;
+        }
+        .sh-item-text::before {
+            content: "•";
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1;
         }
         .sh-title {
+            font-size: 13.5px;
+            font-weight: 500;
+            line-height: 1.48;
+            letter-spacing: -0.015em;
+            color: #334155;
+            word-break: keep-all;
+        }
+        .sh-item:hover .sh-title { color: #1d4ed8; text-decoration: underline; text-underline-offset: 3px; }
+
+        /* 중앙 포커스 히어로 카드: 깔끔한 상단 16:9 와이드 썸네일 + 하단 텍스트 */
+        .sh-hero {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-bottom: 16px;
+            margin-bottom: 4px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .sh-hero-img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+        .sh-hero-body { min-width: 0; }
+        .sh-hero-title {
             font-size: 17px;
             font-weight: 700;
             line-height: 1.45;
             letter-spacing: -0.02em;
-            word-break: keep-all;
-        }
-        .sh-hero { display: flex; gap: 18px; align-items: flex-start; }
-        .sh-hero-img {
-            flex: none;
-            width: 56%;
-            aspect-ratio: 4 / 3;
-            object-fit: cover;
-            background: #f1f5f9;
-        }
-        .sh-hero-body { min-width: 0; flex: 1; }
-        .sh-hero-title {
-            font-size: 20px;
-            font-weight: 700;
-            line-height: 1.5;
-            letter-spacing: -0.02em;
+            color: #0f172a;
             word-break: keep-all;
         }
         .sh-hero-summary {
-            margin-top: 12px;
+            margin-top: 8px;
             font-size: 13px;
-            line-height: 1.7;
-            color: #8b8f97;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #64748b;
             word-break: keep-all;
         }
         @media (max-width: 1023px) {
@@ -255,22 +292,23 @@
         .banner-row-draggable.dragging-banner { opacity: 0.4; }
         .banner-row-draggable.banner-drop-target { outline: 2px dashed #1d4ed8; outline-offset: 2px; }
     
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
+        
         .featured-news-shell {
             border-top: 3px solid #1e3a8a;
             padding: 16px 0 20px;
+        }
+
+    
+        /* 스크롤바 바(트랙) 숨김 - 깔끔한 조선/중앙일보 스타일 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+            overflow-x: hidden !important;
         }
 
     </style>
@@ -280,18 +318,20 @@
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex items-center gap-3.5">
-                    <div class="bg-gradient-to-br from-brand-700 to-brand-900 text-white w-12 h-12 rounded-xl shadow-md flex items-center justify-center shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="bg-brand-700 text-white p-2.5 rounded-xl shadow-md flex items-center justify-center">
                         <i class="fa-solid font-bold text-2xl fa-newspaper"></i>
                     </div>
                     <div>
-                        <div class="flex items-center gap-2.5">
+                        <div class="flex items-center gap-2">
                             <h1 class="text-2xl font-black tracking-tight text-slate-900">
                                 <a href="https://radio20.net" rel="noopener noreferrer" class="hover:text-brand-700 transition" title="시흥미디어 홈으로 이동">시흥미디어</a>
                             </h1>
-                            <span class="bg-brand-50 text-brand-700 border border-brand-200/80 text-[10px] font-extrabold px-2 py-0.5 rounded-md uppercase tracking-wider">News Curation</span>
+                            <a href="https://radio20.net" rel="noopener noreferrer" title="시흥미디어 홈으로 이동" class="shrink-0">
+                                <img src="data:image/jpeg;base64,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" alt="SMD 시흥미디어" class="h-4 w-auto">
+                            </a>
                         </div>
-                        <p class="text-xs text-slate-500 font-medium mt-0.5">시흥시 주요 언론 보도자료 및 지역소식 종합 브리핑</p>
+                        <p class="text-xs text-slate-500 font-medium">시흥시 소식을 한눈에 보는 뉴스 큐레이션</p>
                     </div>
                 </div>
 
@@ -335,16 +375,24 @@
         <section id="bannerBar" class="mb-8 mt-2"></section>
 
         <!-- 하단: 시흥미디어(radio20.net/category) 최신 기사 3단 배치 -->
-        <section class="mt-4 pt-2" id="shMediaSection">
-            <div class="flex items-end justify-between mb-3">
-                <h2 class="text-lg font-black text-slate-900">SMD <span class="text-brand-700">ARTICLE</span></h2>
-                <div class="flex items-center gap-3 text-xs text-slate-400">
-                    <span id="shMediaStatus"></span>
-                    <a href="https://radio20.net/category" target="_blank" rel="noopener noreferrer" class="hover:text-brand-700 font-semibold">전체 기사 보기 <i class="fa-solid fa-angle-right"></i></a>
+        <section class="mt-8 pt-2" id="shMediaSection">
+            <div class="flex items-center justify-between mb-3 border-b-2 border-slate-900 pb-2.5">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 bg-brand-700 rounded-xs"></span>
+                    <h2 class="text-lg font-bold tracking-tight text-slate-900">시흥미디어 포커스</h2>
+                    <span class="text-xs text-slate-400 font-medium">| SMD NEWS</span>
+                </div>
+                <div class="flex items-center gap-3 text-xs text-slate-500">
+                    <span id="shMediaStatus" class="font-normal text-slate-400"></span>
+                    <a href="https://radio20.net/category" target="_blank" rel="noopener noreferrer" class="hover:text-brand-700 font-semibold flex items-center gap-1 transition">
+                        전체 기사 보기 <i class="fa-solid fa-angle-right text-[10px]"></i>
+                    </a>
                 </div>
             </div>
-            <div class="sh-grid" id="shMediaGridArticles">
-                <!-- JavaScript가 radio20.net/category 최신글을 왼쪽 5 · 가운데 4 · 오른쪽 4 순서로 채웁니다 -->
+            <div class="sh-grid-container">
+                <div class="sh-grid" id="shMediaGridArticles">
+                    <!-- JavaScript가 최신글을 정돈된 조선/중앙일보 스타일 3단으로 채웁니다 -->
+                </div>
             </div>
         </section>
 
@@ -887,8 +935,8 @@
             const imgTag = (src, cls) => `<img class="${cls}" src="${escapeHtml(src || DEFAULT_FALLBACK_IMG)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${DEFAULT_FALLBACK_IMG}';">`;
 
             const textItem = item => `
-                <a class="sh-item" ${linkAttrs(item)}>
-                    <span class="sh-title line-clamp-3">${escapeHtml(item.title)}</span>
+                <a class="sh-item sh-item-text" ${linkAttrs(item)}>
+                    <span class="sh-title line-clamp-2">${escapeHtml(item.title)}</span>
                 </a>`;
             const thumbItem = item => `
                 <a class="sh-item sh-item-thumb" ${linkAttrs(item)}>
@@ -1963,7 +2011,7 @@ async function loadSiheungWeather() {
                                 </div>
                                 <span class="admin-only text-[10px] font-semibold text-slate-400">드래그해서 이동</span>
                             </div>
-                            <div class="divide-y divide-slate-100 border-t border-slate-200 max-h-[520px] overflow-y-auto custom-scrollbar pr-1">
+                            <div class="divide-y divide-slate-100 border-t border-slate-200 max-h-[540px] overflow-y-auto no-scrollbar overflow-x-hidden">
                                 ${buildLatestNewsRowsHtml(latestNews, articleIndex)}
                             </div>
                         </div>
@@ -1975,7 +2023,7 @@ async function loadSiheungWeather() {
         // 추천뉴스 행 하나의 마크업
         function latestNewsItemHtml(item, articleIndex) {
             return `
-                                    <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'latest', '${item.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'latest', '${item.id}')" class="news-item-draggable py-3 flex items-start gap-3 group cursor-move hover:bg-slate-50/80 px-1.5 -mx-1.5 rounded-lg transition">
+                                    <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'latest', '${item.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'latest', '${item.id}')" class="news-item-draggable py-3 flex items-start gap-3 group cursor-move hover:bg-slate-50/80  rounded-lg transition">
                                         <div class="flex-1 min-w-0">
                                             <div class="text-[10px] font-semibold text-red-600 mb-1 flex items-center gap-1.5">
                                                 <span>${item.category || '시정'}</span>
