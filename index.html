@@ -254,6 +254,25 @@
         .banner-drag-handle:active { cursor: grabbing; }
         .banner-row-draggable.dragging-banner { opacity: 0.4; }
         .banner-row-draggable.banner-drop-target { outline: 2px dashed #1d4ed8; outline-offset: 2px; }
+    
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .featured-news-shell {
+            border-top: 3px solid #1e3a8a;
+            padding: 16px 0 20px;
+        }
+
     </style>
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
@@ -261,20 +280,18 @@
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex items-center gap-3">
-                    <div class="bg-brand-700 text-white p-2.5 rounded-xl shadow-md flex items-center justify-center">
+                <div class="flex items-center gap-3.5">
+                    <div class="bg-gradient-to-br from-brand-700 to-brand-900 text-white w-12 h-12 rounded-xl shadow-md flex items-center justify-center shrink-0">
                         <i class="fa-solid font-bold text-2xl fa-newspaper"></i>
                     </div>
                     <div>
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2.5">
                             <h1 class="text-2xl font-black tracking-tight text-slate-900">
                                 <a href="https://radio20.net" rel="noopener noreferrer" class="hover:text-brand-700 transition" title="시흥미디어 홈으로 이동">시흥미디어</a>
                             </h1>
-                            <a href="https://radio20.net" rel="noopener noreferrer" title="시흥미디어 홈으로 이동" class="shrink-0">
-                                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQICAQECAQEBAgICAgICAgICAQICAgICAgICAgL/2wBDAQEBAQEBAQEBAQECAQEBAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgL/wAARCAAaAFADAREAAhEBAxEB/8QAGgAAAwADAQAAAAAAAAAAAAAAAAgJBAcKBv/EADEQAAEEAgEEAQMBBgcAAAAAAAQCAwUGAQcIAAkREhQKEyExFRYiMpfWGBojJFJXWP/EABsBAAMBAQEBAQAAAAAAAAAAAAAFBgcEAQII/8QAPREAAQMDAgIHBAcGBwAAAAAAAgEDBAUREgAGISIHEzEyQUJRF1JV0xQVFmFik5QjVHGBgtJDcpGhorHD/9oADAMBAAIRAxEAPwDsV508+NMcBtcRd42giYsE5a5F+HomvqvgNVktRojbT8kU24c+2xFwILBA6jDXlZS3kpllpt4h5pldJtja1S3VMcjQsWWo6ZOvHfAEXsHhxIy8oj6ERKiCpandxbkgbbihImKTjj64tthbM1Tt73AUTzEX4U4kSJqL2fqZqB7K9eJNwyn2V65VtuFSrKcfy5UnFFzhKs4/XHnPjx+qutI9jEv4+3+nL5uoP2tRfgjn5yfK0f5magf+Sbh/VuF/sXo9jEv4+3+nL5uvfazG+Cufnj8vT9A94/TYPBeG5tX3Xtkqolrv0/rSmaqipwCzWSyWeGLkEJbYmlx4A4IGY2MNMJffaQgVpjLSPkkOjNkSZdHlRLdDm24ssHjjtA86+QKAABIPluaktyQRFF5i8US6pRjvmCO3W9wSYhsg86TLbKEhmZoq+awoiWFSUl7OziuOXueAHdk0Fz1kJWkw8ZKao3BEjkSTetrdKgSLtkgx8ZWTLUqfDaZRYPjN+FGiqHGMHR5eww8IhwlHNuvYlV2sDUlxwZ1PdXHrmxVMD910Fvhl5VuQl2XQuXXRtvedN3GTkcBWHObS/UmSFmPvASWzt5hsJJ22UebTAc1+dmjeCmuG7ztuVfNmplbwlG1xX3BH7rd5FhKMkJjAyX0IDhxsONKNkSFIFGS4hv2dKfFGfU7b2vU9zzPo0AEBtvi68d+raH718xL5QHiv3CJEjOv7ip+3Yv0iaSk45ytNBZTcL7k8BTzGvKP8VESUriX3jdMcr9Z79tUJr+z0zYegNWW3b03rKbmY07FnqFViSz3jK3bRBUNqT81gMQr5ATCxXZYZxKCWlKUl7X+jyo0GbSmHJQSYlWfCOLwCSYOmSDY2yX0uqYkuWK91dJaNvmBWolSebjGxKprJvkyRIWbYJe4GieuIrkKWUk7dT/T9TNQspTlXEe3YV4x7YTt2GVjCvGPbCVZoSfZPn9M+MefH6Y6rvYxL+Pt/py+bqb9rMb4K5+ePy9ZIn1Met1kNNncT7wOJlWMPkCbTgTSm0eceVMiu08dD6vHn8Kebx+P5uvkuhiYictfaVfRWTH/l1q/9a9HpYiXsVFcEfUXhL/zRP99Wm4W8+OPvOymSVn03NHjTtaUG1dtd2kZiMutQfkELUE6eAOS8zIQ5GWiEjnhvkCOrHdZy4ghp1lvNtx7Wq215IsVFtCbeujTwczTiJ3sSsioQ+IEKF2F2Ki6u6FuOmbiYJ2A4ouNW6xo+VwFLu3TiiivgQkqeHbdNSh7+3B3dnIiC1Fu/Standilarj7HV7jQa4I7JWBqCniwpQO1QMMxnL0thk0R5g9kZDpGGnxiMNZYYJW3edFW5qZSHajTKk+MNJygbbpriGYIoqBl3UuJXAlsN7pfJR1HdJG3qhVG4NQp7JSyhoYG2HE7EokhgnaViHEkHjay90S1DDitsPmnxRqFkp9c7f8AEbOFs1jRZXpncnEa7XixgkIjRIvMbHzS4xh1uDw2E262Kr2baIIJeb9cku+2nVyFtuuyGZD26ihkyGFo09poC5lK5DkSZ82OXiOI+Cazyjyq/RmHmGttjMR4s7vwnXDHgg4itk4cvZ5VyLza25Od2LfWs7QJDbT4FcPK0c0geQMqlt4xG0mbLjCMrw06hqWOQ+Ky79tz7T/2FozlvPqlfqrHS9rYlKmsE5C3RUHh7qGE5HBRf5JYvxDlruc3nUojwtzdtwWCXmIDhq2Sp/Ut/wCeOme7s279T8jO2pwv2/puiQusara9yW1chQIGLiokGqW+PrlijrbF4YhgBhys4mxSnEFJYaUWyQ0StCFu5RhLsOmz6RvLcVPqMsp78eO1Z41IiNsjAmy5iJU5VHlyLErj4ab7zqEKqbUoM6DHGGy8+d2kEREDEDEx4Ig9vjbmHm1C/WWtN/VrXRXMXU2ZiLgNMbOr9dkbxUJB1Fj17bDgUzFbnZAYTGXoyAfdTgVB7n+0WW4kF5XuS029ps2ZSnpg7en4uPVJgzRt1OR4EWxgKrwI07cO23OndXHPIkSpNRSrkLIW4LwArgFztmqZARY8yCXdv3cuUu9zbR2tNcs+eru7+X2yyCLXCajgKt+/NuJSzA1CrhScxGVeqUenxjePsNyBB0oopMeGnK1JwdJFZ8rW47xQW6DtZKbt+EKR3KgZ9U333TJBIzddXvYoI45l+EE93XXNcrW41qFblkrzcEQ6w+6ACpCANgnZkRLlgn4jL3tN92UrOTSNt8sroFGxE0ZUODG+bOJDWIT9oV6XJgM1mXYi56P90/PhSHg22imc5x91lxaPOPbqf6R2BkwKDGVwmxkVOIBEBWNM8xyBfKqXuJev+mnmwXvo82tPiIuEzTpJ4mlwXHBcVTxEseYfTTXdv3uLWDlBy60loW/cVOFUdTb5J2CPnyqzoGIjpptiKpdhnRlxpJkgS0Mv50SLjOFMLTltS8fw/wAOcIt2bQZolAqdUi1ypFJioCgJyyIeLgCV0REVeVS8dOdtbpcq9ap9Nk0eALEhTEsIyCvADIbXIk7R9NXy5+cYuOLnCnlEQzovUkaZEaVvtjiZOG1/U4KVip6s182cg5SPlouKZfCLHlARXEqbcT7YRlpfs04tGcq2rWqum5aIi1SQQuSWgUSeMkIDNAMVEiUVFRXx9fC2tH3LSaUVBrC/V7Ak3HdNFFoBJCAVISEhFFRRVPXXIX2btl3/AF3z80uJRjyhBdiy4+vLyKwz8geSpEzKRh0qOW1lKsIbbKiwXku5xjLSx8KSpPX6A6Q4cSXtWpFKBCKGPXNF3bOiioNv6VUbebWJ7FlyYu5KeMYlFJRdW4PvNkokuVv8olfw10490jWvdDvGwdVmcBrHZoOng0yaGv6IPY1Cpgz1kcm23o1RINvlhnTn8ReM4S6yhbaEpyhSkqz4Vi2x5uyY0OcO62QcfJwVazZddXDDjzNCuPN4L/HWs7wibvkSoZbbdNtgGyRzF1tvny5eBqN+XzJqXf8Ah9+o+/7Bv39dtJ/3L1cfW3Q/+6NfpZP9mpD6r6U/3l39Sx/fpatp9pzvFcmL7FWrfMIxb7HiOArLd0vW6NZyLMFABEFkDDOMwVhJIai2iTznlNhhPOKcMdc+0464rOXEHfnR7RorrFLcWMyikfVtRnkzMre+AjcsUTiQ91ONtKpmzd8VaSL1Sa65yyBm6+yuIIv3Gq2TIlsKF26ovzD7SG+Bu33xS4o8eIkHblz1hsmzXrZcy5Y6zS44iWtsPNlSx8Xm4S4WH4lqWk2gREJyopQwbLz7aFZd9JDb2/qWW667Xau6tPjzWQbZHA3Ss2ooKF1YlzWTJfLdVEV7NVFc2XUU23RqNTG0mvw3TceLMARSMSuo5kPLcrD42RFVNMv2a+CG5+MukuR2reWGsYKNj9qWmIy1XDLBTbzD2irLqhUPOCSLFdlTmUiLUStlbJPopzClZSjKPC8pukTdNOrNSo82gzycOABc4g60oHmhAQ5iC5ea6abbE25PpFPqkOswxAZhjyKYOiYYKhZYKSW5rWXW+OZHBIQftubK4icM9WxARUi7WiqxTmJyNh3Jc5vYVesU/KS1qt0o0mQllAAkKyRIGZdW2EyMhz0aYaSq27ugl3jCr+4pxEKZ9Y5gRYp1JgAiDYriOSpwAfEl95dMa5t0U2tLodChiJFhgFxHJetAzIjNRuVk7SLyonpqPnbu7V3ODj/YuURm0NSxUEJsrhvvDU9OIY2RriYTJ365BRTNbhHG4azkLj233RiPYshLQrGE/wCq8nz1oO7d87ZqrNFGDPJwodRjPufsXhxabUsz5gG9r91LqvgOojbGztwU12sFLhi2MqDIZD9o2WTpoOCcpra/qXKPrpLNYdn3u36cvFf2Zq/Wg9HvlZcJJgbJEbj003KRD58cVGF5YWu5ut+6488xlf4WnKXs+P8Al1STekHYNRjPQps1ZUV7gYFGk2VEIST/AAveES0hibH3rBktS4cNI8lnumL7F0umK+f3VUdMtfeGn1Au4KjM602VabbYKJbWh4+yw0xvnUmImQASS2R8eUTFWb5BEd95lvLrKMLw8lPotpxP46TRdxdFFPkNzYbLbMqPzAQxJFxL8Nwtl6F4aayaF0lzmHIkt43I73A0KSzio/fid7e8Pm1V3tOdpLPBt+c3DuOdgrhvqzwi64CFXfvmVPXVafLDkDxIuRkBGnZqymFAA/JNwww2OyL8QTC0OvkPwm+9/fadGqfT2ij0tksyI+Djx2UUUhEiQQESKw5LcuZfAUstmbL+zyuTpzgvVJ4cEQOINBdCJBIkTIyUUuWI2TlHzKtxOs11oWjo0aOjRo6NGjo0aOjRo6NGjo0aOjRo6NGv/9k=" alt="SMD 시흥미디어" class="h-4 w-auto">
-                            </a>
+                            <span class="bg-brand-50 text-brand-700 border border-brand-200/80 text-[10px] font-extrabold px-2 py-0.5 rounded-md uppercase tracking-wider">News Curation</span>
                         </div>
-                        <p class="text-xs text-slate-500 font-medium">시흥시 소식을 한눈에 보는 뉴스 큐레이션</p>
+                        <p class="text-xs text-slate-500 font-medium mt-0.5">시흥시 주요 언론 보도자료 및 지역소식 종합 브리핑</p>
                     </div>
                 </div>
 
@@ -299,9 +316,9 @@
         <!-- 실시간 뉴스 띠 -->
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div class="flex items-center gap-3 flex-grow overflow-hidden">
-                <span class="bg-red-100 text-red-600 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1.5 whitespace-nowrap shrink-0">
-                    <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-                    실시간 소식
+                <span class="bg-brand-50 text-brand-700 border border-brand-200/90 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1.5 whitespace-nowrap shrink-0 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
+                    주요 ❘ 추천뉴스
                 </span>
                 <div class="ticker-wrapper flex-grow">
                     <div id="tickerList" class="ticker-list"></div>
@@ -1659,18 +1676,25 @@ async function loadSiheungWeather() {
                 return;
             }
 
-            let itemsHtml = filtered.map(item => `
-                <div class="ticker-item text-xs font-semibold text-slate-800 truncate">
-                    <a href="${item.url}" target="_blank" class="hover:text-brand-700 hover:underline">
-                        <span class="text-brand-700 font-bold">[${item.press}]</span> ${item.title || '뉴스 소식'}
+            // 주요뉴스 우선 정렬
+            const sorted = [...filtered].sort((a, b) => (b.isMajor ? 1 : 0) - (a.isMajor ? 1 : 0));
+
+            let itemsHtml = sorted.map(item => `
+                <div class="ticker-item text-xs font-medium text-slate-800 truncate">
+                    <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:text-brand-700 transition inline-flex items-center gap-1.5 max-w-full truncate">
+                        ${item.isMajor ? '<span class="bg-red-50 text-red-600 border border-red-200 text-[10px] font-bold px-1.5 py-0.2 rounded shrink-0">주요</span>' : '<span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-1.5 py-0.2 rounded shrink-0">추천</span>'}
+                        <span class="text-brand-700 font-bold shrink-0">[${item.press}]</span>
+                        <span class="truncate hover:underline text-slate-800">${item.title || '뉴스 소식'}</span>
                     </a>
                 </div>
             `).join('');
 
             itemsHtml += `
-                <div class="ticker-item text-xs font-semibold text-slate-800 truncate">
-                    <a href="${filtered[0].url}" target="_blank" class="hover:text-brand-700 hover:underline">
-                        <span class="text-brand-700 font-bold">[${filtered[0].press}]</span> ${filtered[0].title || '뉴스 소식'}
+                <div class="ticker-item text-xs font-medium text-slate-800 truncate">
+                    <a href="${sorted[0].url}" target="_blank" rel="noopener noreferrer" class="hover:text-brand-700 transition inline-flex items-center gap-1.5 max-w-full truncate">
+                        ${sorted[0].isMajor ? '<span class="bg-red-50 text-red-600 border border-red-200 text-[10px] font-bold px-1.5 py-0.2 rounded shrink-0">주요</span>' : '<span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-1.5 py-0.2 rounded shrink-0">추천</span>'}
+                        <span class="text-brand-700 font-bold shrink-0">[${sorted[0].press}]</span>
+                        <span class="truncate hover:underline text-slate-800">${sorted[0].title || '뉴스 소식'}</span>
                     </a>
                 </div>
             `;
@@ -1685,7 +1709,7 @@ async function loadSiheungWeather() {
                 tickerList.style.transition = 'top 0.5s ease-in-out';
                 tickerList.style.top = `-${currentTickerIndex * 24}px`;
 
-                if (currentTickerIndex >= filtered.length) {
+                if (currentTickerIndex >= sorted.length) {
                     setTimeout(() => {
                         tickerList.style.transition = 'none';
                         currentTickerIndex = 0;
@@ -1867,7 +1891,7 @@ async function loadSiheungWeather() {
                                 <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">주요뉴스</h2>
                                 <span class="text-xs font-bold text-slate-400">${majorPool.length}/4</span>
                             </div>
-                            <div class="relative h-[300px] sm:h-[360px] lg:h-[390px] bg-slate-100 overflow-hidden rounded-lg">
+                            <div class="relative h-[280px] sm:h-[320px] lg:h-[340px] bg-slate-100 overflow-hidden rounded-lg">
                                 <a href="${featured.url}" target="_blank" rel="noopener noreferrer" draggable="false" class="block w-full h-full">
                                     <img draggable="false" src="${featured.thumbnail || DEFAULT_FALLBACK_IMG}"
                                          onerror="this.onerror=null; this.src='${DEFAULT_FALLBACK_IMG}';"
@@ -1904,7 +1928,7 @@ async function loadSiheungWeather() {
                         <div class="news-dropzone lg:col-span-3 border-l border-slate-200 px-0 lg:px-5 mt-7 lg:mt-0 space-y-4" ondragover="allowZoneDrop(event)" ondragleave="leaveZoneDrop(event)" ondrop="dropNewsZone(event, 'major')">
                             ${majorNews.length ? majorNews.map((item, idx) => `
                                 <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'major', '${item.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'major', '${item.id}')" class="news-item-draggable group ${idx > 0 ? 'pt-4 border-t border-slate-200' : ''} cursor-move">
-                                    <div class="relative h-[170px] sm:h-[200px] lg:h-[120px] bg-slate-100 overflow-hidden rounded-lg mb-2">
+                                    <div class="relative h-[150px] sm:h-[170px] lg:h-[105px] bg-slate-100 overflow-hidden rounded-lg mb-2">
                                         <a href="${item.url}" target="_blank" rel="noopener noreferrer" draggable="false" class="block w-full h-full">
                                             <img draggable="false" src="${item.thumbnail || DEFAULT_FALLBACK_IMG}"
                                                  onerror="this.onerror=null; this.src='${DEFAULT_FALLBACK_IMG}';"
@@ -1932,11 +1956,14 @@ async function loadSiheungWeather() {
                         </div>
 
                         <div class="news-dropzone lg:col-span-3 border-l border-slate-200 pl-0 lg:pl-5 mt-7 lg:mt-0" ondragover="allowZoneDrop(event)" ondragleave="leaveZoneDrop(event)" ondrop="dropNewsZone(event, 'latest')">
-                            <div class="flex items-end justify-between mb-2">
-                                <h3 class="text-lg font-black text-slate-900">추천뉴스</h3>
+                            <div class="flex items-end justify-between mb-2 pb-1">
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-black text-slate-900">추천뉴스</h3>
+                                    <span class="text-[11px] font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full border border-brand-200/60">${latestNews.length}</span>
+                                </div>
                                 <span class="admin-only text-[10px] font-semibold text-slate-400">드래그해서 이동</span>
                             </div>
-                            <div class="divide-y divide-slate-200 border-t border-slate-200 min-h-[80px]">
+                            <div class="divide-y divide-slate-100 border-t border-slate-200 max-h-[520px] overflow-y-auto custom-scrollbar pr-1">
                                 ${buildLatestNewsRowsHtml(latestNews, articleIndex)}
                             </div>
                         </div>
@@ -1948,12 +1975,16 @@ async function loadSiheungWeather() {
         // 추천뉴스 행 하나의 마크업
         function latestNewsItemHtml(item, articleIndex) {
             return `
-                                    <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'latest', '${item.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'latest', '${item.id}')" class="news-item-draggable py-3.5 flex items-center gap-3 group cursor-move">
+                                    <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'latest', '${item.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'latest', '${item.id}')" class="news-item-draggable py-3 flex items-start gap-3 group cursor-move hover:bg-slate-50/80 px-1.5 -mx-1.5 rounded-lg transition">
                                         <div class="flex-1 min-w-0">
-                                            <div class="text-[10px] font-semibold text-red-600 mb-1">${item.category || item.press}</div>
-                                            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="font-bold text-sm text-slate-900 leading-snug line-clamp-2 group-hover:text-brand-700 transition">${item.title || '추천뉴스'}</a>
+                                            <div class="text-[10px] font-semibold text-red-600 mb-1 flex items-center gap-1.5">
+                                                <span>${item.category || '시정'}</span>
+                                                <span class="text-slate-300">·</span>
+                                                <span class="text-slate-500 font-normal">${item.press}</span>
+                                            </div>
+                                            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="font-bold text-[13px] text-slate-900 leading-snug line-clamp-2 group-hover:text-brand-700 transition">${item.title || '추천뉴스'}</a>
                                         </div>
-                                        <div class="relative w-20 h-16 rounded-lg overflow-hidden bg-slate-100 shrink-0">
+                                        <div class="relative w-[78px] h-[54px] rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200/60 shadow-2xs">
                                             <a href="${item.url}" target="_blank" rel="noopener noreferrer" draggable="false" class="block w-full h-full">
                                                 <img draggable="false" src="${item.thumbnail || DEFAULT_FALLBACK_IMG}" onerror="this.onerror=null; this.src='${DEFAULT_FALLBACK_IMG}';" alt="" class="w-full h-full object-cover">
                                             </a>
