@@ -259,13 +259,7 @@
         }
         .sh-right-item:first-child { border-top: 0; padding-top: 0; }
         .sh-right-body { flex: 1; min-width: 0; }
-        .sh-right-cat {
-            font-size: 10.5px;
-            font-weight: 700;
-            color: #b91c1c;
-            margin-bottom: 2px;
-            display: block;
-        }
+        
         .sh-right-title {
             font-size: 13px;
             font-weight: 600;
@@ -273,6 +267,13 @@
             color: #1e293b;
             letter-spacing: -0.015em;
             word-break: keep-all;
+            display: block;
+        }
+        .sh-right-summary {
+            font-size: 11.5px;
+            color: #64748b;
+            line-height: 1.45;
+            margin-top: 3px;
             display: block;
         }
         .sh-right-item:hover .sh-right-title { color: #1d4ed8; text-decoration: underline; text-underline-offset: 2px; }
@@ -1061,14 +1062,13 @@
                 </div>
             `;
 
-            const categories = ['시정/행정', '사회/지역', '문화/예술', '기획/칼럼', '지역/종합'];
             const rightHtml = `
                 <div class="sh-col sh-col-divider">
                     ${rightItems.map((item, idx) => `
                         <a class="sh-right-item" ${linkAttrs(item)}>
                             <div class="sh-right-body">
-                                <span class="sh-right-cat">${categories[idx % categories.length]}</span>
                                 <span class="sh-right-title line-clamp-2">${escapeHtml(item.title)}</span>
+                                ${item.summary ? `<span class="sh-right-summary line-clamp-1">${escapeHtml(item.summary)}</span>` : ''}
                             </div>
                             ${imgTag(item.thumbnail, 'sh-right-thumb')}
                         </a>
