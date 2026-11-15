@@ -375,6 +375,15 @@
 
             <div class="p-6 overflow-y-auto flex-grow">
                 <form id="addArticleForm" class="space-y-4" onsubmit="handleFormSubmit(event)">
+                    <div id="editModeNotice" class="hidden bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-3 mb-2 flex items-center justify-between">
+                        <div class="flex items-center gap-2 text-xs font-semibold min-w-0">
+                            <i class="fa-solid fa-pen-to-square text-blue-600 shrink-0"></i>
+                            <span class="truncate">기사 수정 중: <strong id="editModeArticleTitle" class="text-blue-900 font-bold"></strong></span>
+                        </div>
+                        <button type="button" onclick="cancelEditMode()" class="shrink-0 text-xs bg-white border border-blue-300 hover:bg-blue-100 text-blue-700 font-bold px-2.5 py-1 rounded shadow-sm transition ml-2">
+                            수정 취소
+                        </button>
+                    </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase mb-1">언론사 선택 또는 직접 입력 <span class="text-red-500">*</span></label>
                         <div class="flex gap-2">
@@ -436,8 +445,8 @@
                     </div>
 
                     <div class="pt-2">
-                        <button type="submit" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-bold py-3 rounded-lg text-sm shadow transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-check"></i> 기사 등록하기
+                        <button type="submit" id="articleSubmitBtn" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-bold py-3 rounded-lg text-sm shadow transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-check" id="articleSubmitIcon"></i> <span id="articleSubmitText">기사 등록하기</span>
                         </button>
                     </div>
                 </form>
@@ -2391,6 +2400,9 @@ function cancelBannerEdit() {
                         <button type="button" onclick="toggleMajorArticle('${item.id}')" title="${item.isMajor ? '주요뉴스에서 해제' : '주요뉴스로 등록'}" class="text-xs ${item.isMajor ? 'text-red-600 bg-red-50' : 'text-amber-600'} hover:bg-amber-50 p-2 rounded-lg transition">
                             <i class="fa-solid fa-star"></i>
                         </button>
+                        <button type="button" onclick="startEditArticle('${String(item.id).replace(/"/g, '&quot;')}')" title="기사 내용 수정" aria-label="기사 내용 수정" class="text-xs text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition cursor-pointer">
+                            <i class="fa-solid fa-pen-to-square pointer-events-none"></i>
+                        </button>
                         <button type="button" data-delete-id="${String(item.id).replace(/"/g, '&quot;')}" title="삭제" aria-label="기사 삭제" class="modal-delete-btn text-xs text-red-500 hover:bg-red-50 p-2 rounded-lg transition cursor-pointer">
                             <i class="fa-solid fa-trash-can pointer-events-none"></i>
                         </button>
@@ -2436,6 +2448,89 @@ function cancelBannerEdit() {
             }
         }
 
+        
+        let editingArticleId = null;
+
+        function startEditArticle(id) {
+            const article = articles.find(a => String(a.id) === String(id));
+            if (!article) {
+                showToast('수정할 기사를 찾지 못했습니다.');
+                return;
+            }
+
+            editingArticleId = String(id);
+
+            const pressSelect = document.getElementById('inputPressSelect');
+            const pressName = document.getElementById('inputPressName');
+            const knownPresses = ['시흥신문', '시흥저널', '컬쳐인시흥', '시흥미디어'];
+            if (knownPresses.includes(article.press)) {
+                pressSelect.value = article.press;
+            } else {
+                pressSelect.value = 'custom';
+            }
+            pressName.value = article.press || '';
+
+            document.getElementById('inputUrl').value = article.url || '';
+            document.getElementById('inputTitle').value = article.title || '';
+            document.getElementById('inputThumbnail').value = article.thumbnail || '';
+            document.getElementById('inputCategory').value = article.category || '시정/행정';
+            document.getElementById('inputDate').value = article.date || '';
+            document.getElementById('inputSummary').value = article.summary || '';
+
+            const notice = document.getElementById('editModeNotice');
+            if (notice) {
+                notice.classList.remove('hidden');
+                const titleSpan = document.getElementById('editModeArticleTitle');
+                if (titleSpan) titleSpan.textContent = article.title || '제목 없음';
+            }
+
+            const tabBtn = document.getElementById('tabAddBtn');
+            if (tabBtn) {
+                tabBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> 기사 수정';
+            }
+
+            const submitBtn = document.getElementById('articleSubmitBtn');
+            const submitText = document.getElementById('articleSubmitText');
+            const submitIcon = document.getElementById('articleSubmitIcon');
+            if (submitBtn) {
+                submitBtn.className = "w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg text-sm shadow transition flex items-center justify-center gap-2";
+            }
+            if (submitIcon) submitIcon.className = "fa-solid fa-floppy-disk";
+            if (submitText) submitText.textContent = "기사 수정 내용 저장";
+
+            switchTab('add');
+            const scrollContainer = document.querySelector('#addArticleForm')?.parentElement;
+            if (scrollContainer) scrollContainer.scrollTop = 0;
+        }
+
+        function cancelEditMode() {
+            editingArticleId = null;
+
+            const notice = document.getElementById('editModeNotice');
+            if (notice) notice.classList.add('hidden');
+
+            const tabBtn = document.getElementById('tabAddBtn');
+            if (tabBtn) {
+                tabBtn.innerHTML = '<i class="fa-solid fa-plus-circle"></i> 새 기사 추가';
+            }
+
+            const submitBtn = document.getElementById('articleSubmitBtn');
+            const submitText = document.getElementById('articleSubmitText');
+            const submitIcon = document.getElementById('articleSubmitIcon');
+            if (submitBtn) {
+                submitBtn.className = "w-full bg-brand-700 hover:bg-brand-800 text-white font-bold py-3 rounded-lg text-sm shadow transition flex items-center justify-center gap-2";
+            }
+            if (submitIcon) submitIcon.className = "fa-solid fa-check";
+            if (submitText) submitText.textContent = "기사 등록하기";
+
+            document.getElementById('addArticleForm').reset();
+            setTodayInputDate();
+            const selectVal = document.getElementById('inputPressSelect').value;
+            if (selectVal !== 'custom') {
+                document.getElementById('inputPressName').value = selectVal;
+            }
+        }
+
         function handleFormSubmit(e) {
             e.preventDefault();
             const press = document.getElementById('inputPressName').value.trim();
@@ -2448,6 +2543,31 @@ function cancelBannerEdit() {
 
             if (!press || !url) {
                 alert('언론사명과 URL은 필수 입력사항입니다.');
+                return;
+            }
+
+            if (editingArticleId) {
+                const article = articles.find(a => String(a.id) === String(editingArticleId));
+                if (!article) {
+                    alert('수정 중인 기사를 찾을 수 없습니다.');
+                    cancelEditMode();
+                    return;
+                }
+
+                article.press = press;
+                article.title = title || '제목 없음';
+                article.url = url;
+                article.thumbnail = thumbnail || '';
+                article.category = category;
+                article.date = date || new Date().toISOString().split('T')[0];
+                article.summary = summary || `${press} 원문 기사에서 상세 내용을 확인해보세요.`;
+
+                saveArticles();
+                renderAll();
+
+                showToast('기사 내용이 성공적으로 수정되었습니다.');
+                cancelEditMode();
+                switchTab('list');
                 return;
             }
 
