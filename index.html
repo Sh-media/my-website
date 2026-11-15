@@ -106,94 +106,95 @@
         .news-banner-label { font-size: 13px; font-weight: 700; color: #334155; }
         .bottom-text-link { min-height: 58px; display: flex; align-items: center; gap: 10px; padding: 0 24px; font-size: 13px; font-weight: 700; color: #334155; border: 1px solid #e2e8f0; background: #fff; border-radius: 8px; }
         .bottom-text-link:hover { color: #1e40af; }
-        /* ===== 하단: 시흥미디어 최신 기사 3단 배치 (조선일보·중앙일보 스타일) ===== */
+        /* ===== 하단: 시흥미디어 뉴스 3단 배치 (빈 공간 없이 꽉 채운 균형 레이아웃) ===== */
         .sh-grid-container {
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-top: 3px solid #0f172a;
             border-radius: 8px;
-            padding: 20px 24px;
+            padding: 18px 20px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
         .sh-grid {
-            --sh-cols: 1fr 1.6fr 1fr;
+            --sh-cols: 1.1fr 1.4fr 1.1fr;
             display: grid;
             grid-template-columns: var(--sh-cols);
             gap: 0;
         }
-        .sh-col { min-width: 0; padding: 0 20px; }
+        .sh-col { min-width: 0; padding: 0 18px; }
         .sh-col:first-child { padding-left: 0; }
         .sh-col:last-child { padding-right: 0; }
         .sh-col + .sh-col { border-left: 1px solid #f1f5f9; }
 
-        /* 세련된 폰트 두께와 자간: 너무 두껍지 않고 가독성 높은 폰트 */
-        .sh-item {
-            display: block;
-            padding: 12px 0;
+        /* 좌우측 카드 아이템: 썸네일 + 제목 + 기사 일부(요약) 완벽 구성 */
+        .sh-item-card {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 11px 0;
             border-top: 1px solid #f1f5f9;
             color: #1e293b;
             transition: all 0.15s ease;
         }
-        .sh-item:first-child { border-top: 0; padding-top: 0; }
-        .sh-item:hover .sh-title,
-        .sh-item:hover .sh-hero-title { color: #1d4ed8; }
-
-        .sh-item-thumb { display: flex; gap: 12px; align-items: flex-start; padding-bottom: 14px; }
-        .sh-item-thumb .sh-title {
+        .sh-item-card:first-child {
+            border-top: 0;
+            padding-top: 0;
+        }
+        .sh-card-body {
             flex: 1;
             min-width: 0;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1.45;
-            letter-spacing: -0.02em;
-            color: #0f172a;
         }
-        .sh-thumb-img {
+        .sh-card-thumb-img {
             flex: none;
-            width: 80px;
-            height: 56px;
+            width: 84px;
+            height: 60px;
             object-fit: cover;
             border-radius: 6px;
             background: #f8fafc;
             border: 1px solid #e2e8f0;
         }
-
-        /* 텍스트 기사: 블릿(·) 기호와 정제된 폰트 크기 14px, 500/600 굵기 */
-        .sh-item-text {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-            padding: 9px 0;
-        }
-        .sh-item-text::before {
-            content: "•";
-            color: #94a3b8;
-            font-size: 13px;
-            line-height: 1;
-        }
-        .sh-title {
+        .sh-card-title {
             font-size: 13.5px;
-            font-weight: 500;
-            line-height: 1.48;
+            font-weight: 600;
+            line-height: 1.42;
             letter-spacing: -0.015em;
-            color: #334155;
+            color: #0f172a;
             word-break: keep-all;
+            display: block;
         }
-        .sh-item:hover .sh-title { color: #1d4ed8; text-decoration: underline; text-underline-offset: 3px; }
+        .sh-card-summary {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #64748b;
+            margin-top: 4px;
+            word-break: keep-all;
+            display: block;
+        }
+        .sh-item-card:hover .sh-card-title {
+            color: #1d4ed8;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
 
-        /* 중앙 포커스 히어로 카드: 깔끔한 상단 16:9 와이드 썸네일 + 하단 텍스트 */
+        /* 중앙 포커스 히어로 카드 */
         .sh-hero {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            padding-bottom: 16px;
+            gap: 10px;
+            padding-bottom: 14px;
             margin-bottom: 4px;
             border-bottom: 1px solid #f1f5f9;
+        }
+        .sh-hero:hover .sh-hero-title {
+            color: #1d4ed8;
+            text-decoration: underline;
+            text-underline-offset: 3px;
         }
         .sh-hero-img {
             width: 100%;
             aspect-ratio: 16 / 9;
-            max-height: 220px;
+            max-height: 200px;
             object-fit: cover;
             border-radius: 6px;
             background: #f8fafc;
@@ -201,20 +202,22 @@
         }
         .sh-hero-body { min-width: 0; }
         .sh-hero-title {
-            font-size: 17px;
+            font-size: 16.5px;
             font-weight: 700;
             line-height: 1.45;
             letter-spacing: -0.02em;
             color: #0f172a;
             word-break: keep-all;
+            display: block;
         }
         .sh-hero-summary {
-            margin-top: 8px;
-            font-size: 13px;
+            margin-top: 6px;
+            font-size: 12.5px;
             font-weight: 400;
             line-height: 1.6;
             color: #64748b;
             word-break: keep-all;
+            display: block;
         }
         @media (max-width: 1023px) {
             .sh-grid { grid-template-columns: 1fr; padding: 4px 16px; }
@@ -379,8 +382,7 @@
             <div class="flex items-center justify-between mb-3 border-b-2 border-slate-900 pb-2.5">
                 <div class="flex items-center gap-2.5">
                     <span class="w-2.5 h-2.5 bg-brand-700 rounded-xs"></span>
-                    <h2 class="text-lg font-bold tracking-tight text-slate-900">시흥미디어 포커스</h2>
-                    <span class="text-xs text-slate-400 font-medium">| SMD NEWS</span>
+                    <h2 class="text-lg font-bold tracking-tight text-slate-900">시흥미디어 뉴스</h2>
                 </div>
                 <div class="flex items-center gap-3 text-xs text-slate-500">
                     <span id="shMediaStatus" class="font-normal text-slate-400"></span>
@@ -689,7 +691,7 @@
         const SH_MEDIA_CATEGORY_URL = 'https://radio20.net/category';
         const SH_MEDIA_CACHE_KEY = 'siheung_bottom_latest_v1';
         // 배치 순서: 왼쪽 5개 → 가운데 4개(대표 1 + 목록 3) → 오른쪽 4개, 최신글 순서대로 채움
-        const SH_MEDIA_COLUMN_SIZES = [5, 4, 5];
+        const SH_MEDIA_COLUMN_SIZES = [4, 3, 4];
         const SH_MEDIA_TOTAL = SH_MEDIA_COLUMN_SIZES.reduce((a, b) => a + b, 0);
         const SH_MEDIA_REFRESH_MS = 5 * 60 * 1000; // 5분마다 자동 갱신
         let shMediaItems = [];
@@ -934,25 +936,26 @@
             const linkAttrs = item => `href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer"`;
             const imgTag = (src, cls) => `<img class="${cls}" src="${escapeHtml(src || DEFAULT_FALLBACK_IMG)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${DEFAULT_FALLBACK_IMG}';">`;
 
-            const textItem = item => `
-                <a class="sh-item sh-item-text" ${linkAttrs(item)}>
-                    <span class="sh-title line-clamp-2">${escapeHtml(item.title)}</span>
-                </a>`;
-            const thumbItem = item => `
-                <a class="sh-item sh-item-thumb" ${linkAttrs(item)}>
-                    ${imgTag(item.thumbnail, 'sh-thumb-img')}
-                    <span class="sh-title line-clamp-3">${escapeHtml(item.title)}</span>
-                </a>`;
-            const heroItem = item => `
-                <a class="sh-item sh-hero" ${linkAttrs(item)}>
-                    ${imgTag(shUpscaleThumb(item.thumbnail, 'R800x0'), 'sh-hero-img')}
-                    <span class="sh-hero-body">
-                        <span class="sh-hero-title line-clamp-3">${escapeHtml(item.title)}</span>
-                        ${item.summary ? `<span class="sh-hero-summary line-clamp-6">${escapeHtml(item.summary)}</span>` : ''}
-                    </span>
+            // 모든 좌우 아이템에 썸네일 + 제목 + 기사 요약 적용
+            const cardItem = item => `
+                <a class="sh-item-card" ${linkAttrs(item)}>
+                    ${imgTag(item.thumbnail, 'sh-card-thumb-img')}
+                    <div class="sh-card-body">
+                        <span class="sh-card-title line-clamp-2">${escapeHtml(item.title)}</span>
+                        ${item.summary ? `<span class="sh-card-summary line-clamp-2">${escapeHtml(item.summary)}</span>` : ''}
+                    </div>
                 </a>`;
 
-            // 최신글을 왼쪽 → 가운데 → 오른쪽 순서로 분배
+            const heroItem = item => `
+                <a class="sh-hero" ${linkAttrs(item)}>
+                    ${imgTag(shUpscaleThumb(item.thumbnail, 'R800x0'), 'sh-hero-img')}
+                    <div class="sh-hero-body">
+                        <span class="sh-hero-title line-clamp-2">${escapeHtml(item.title)}</span>
+                        ${item.summary ? `<span class="sh-hero-summary line-clamp-3">${escapeHtml(item.summary)}</span>` : ''}
+                    </div>
+                </a>`;
+
+            // 최신글을 왼쪽(4개) → 가운데(대표 1 + 목록 2) → 오른쪽(4개) 순서로 분배하여 높이를 균등하게 채움
             let cursor = 0;
             const [left, center, right] = SH_MEDIA_COLUMN_SIZES.map(size => {
                 const chunk = items.slice(cursor, cursor + size);
@@ -962,9 +965,18 @@
 
             const cols = [];
             const widths = [];
-            if (left.length) { cols.push(`<div class="sh-col">${thumbItem(left[0])}${left.slice(1).map(textItem).join('')}</div>`); widths.push('1fr'); }
-            if (center.length) { cols.push(`<div class="sh-col">${heroItem(center[0])}${center.slice(1).map(textItem).join('')}</div>`); widths.push('2fr'); }
-            if (right.length) { cols.push(`<div class="sh-col">${thumbItem(right[0])}${right.slice(1).map(textItem).join('')}</div>`); widths.push('1fr'); }
+            if (left.length) {
+                cols.push(`<div class="sh-col">${left.map(cardItem).join('')}</div>`);
+                widths.push('1.1fr');
+            }
+            if (center.length) {
+                cols.push(`<div class="sh-col">${heroItem(center[0])}${center.slice(1).map(cardItem).join('')}</div>`);
+                widths.push('1.4fr');
+            }
+            if (right.length) {
+                cols.push(`<div class="sh-col">${right.map(cardItem).join('')}</div>`);
+                widths.push('1.1fr');
+            }
 
             grid.style.setProperty('--sh-cols', widths.join(' '));
             grid.innerHTML = cols.join('');
@@ -2004,14 +2016,14 @@ async function loadSiheungWeather() {
                         </div>
 
                         <div class="news-dropzone lg:col-span-3 border-l border-slate-200 pl-0 lg:pl-5 mt-7 lg:mt-0" ondragover="allowZoneDrop(event)" ondragleave="leaveZoneDrop(event)" ondrop="dropNewsZone(event, 'latest')">
-                            <div class="flex items-end justify-between mb-2 pb-1">
+                            <div class="flex items-center justify-between mb-1.5 pb-1">
                                 <div class="flex items-center gap-2">
-                                    <h3 class="text-lg font-black text-slate-900">추천뉴스</h3>
+                                    <h3 class="text-base font-black text-slate-900">추천뉴스</h3>
                                     <span class="text-[11px] font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full border border-brand-200/60">${latestNews.length}</span>
                                 </div>
                                 <span class="admin-only text-[10px] font-semibold text-slate-400">드래그해서 이동</span>
                             </div>
-                            <div class="divide-y divide-slate-100 border-t border-slate-200 max-h-[540px] overflow-y-auto no-scrollbar overflow-x-hidden">
+                            <div class="divide-y divide-slate-100 border-t border-slate-200 max-h-[570px] overflow-y-auto no-scrollbar overflow-x-hidden">
                                 ${buildLatestNewsRowsHtml(latestNews, articleIndex)}
                             </div>
                         </div>
