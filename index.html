@@ -227,20 +227,10 @@
             border: 1px solid #e2e8f0;
             background: #f8fafc;
         }
-        .sh-badge-hot {
-            display: inline-block;
-            background: #dc2626;
-            color: #ffffff;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 2px 6px;
-            border-radius: 3px;
-            letter-spacing: 0.05em;
-            margin-top: 10px;
-            margin-bottom: 6px;
-        }
+        
         .sh-center-title {
-            font-size: 20px;
+            margin-top: 10px;
+            font-size: 19px;
             font-weight: 800;
             line-height: 1.38;
             letter-spacing: -0.025em;
@@ -264,7 +254,7 @@
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            padding: 9.5px 0;
+            padding: 8px 0;
             border-top: 1px solid #f1f5f9;
         }
         .sh-right-item:first-child { border-top: 0; padding-top: 0; }
@@ -769,7 +759,7 @@
         const SH_MEDIA_CATEGORY_URL = 'https://radio20.net/category';
         const SH_MEDIA_CACHE_KEY = 'siheung_bottom_latest_v1';
         // 배치 순서: 왼쪽 5개 → 가운데 4개(대표 1 + 목록 3) → 오른쪽 4개, 최신글 순서대로 채움
-        const SH_MEDIA_COLUMN_SIZES = [4, 3, 4];
+        const SH_MEDIA_COLUMN_SIZES = [3, 1, 5];
         const SH_MEDIA_TOTAL = SH_MEDIA_COLUMN_SIZES.reduce((a, b) => a + b, 0);
         const SH_MEDIA_REFRESH_MS = 5 * 60 * 1000; // 5분마다 자동 갱신
         let shMediaItems = [];
@@ -784,7 +774,9 @@
             { id: '390398', title: '내년도 마을사업, 배곧1동 주민들이 직접 결정한다… 19일 주민총회 개최', summary: '' },
             { id: '390397', title: '시흥 오이도 스틸랜드에 수도권 최대 12.6MW 산업단지 지붕형 태양광 준공', summary: '민간 200억 원 투자…RE100 지원·‘기업형 햇빛소득’ 모델 제시' },
             { id: '390396', title: '배곧 복합문화중심도시 조성 우선협상대상자로 ‘배곧 파트너스(컨소시엄)’ 선정', summary: '' },
-            { id: '390395', title: '시흥 ‘브레이킹 배틀’ 뜨거운 무대… 은계호수공원 2천여 명 열광', summary: '' }
+            { id: '390395', title: '시흥 ‘브레이킹 배틀’ 뜨거운 무대… 은계호수공원 2천여 명 열광', summary: '' },
+            { id: '390394', title: '시흥시, 제34회 경기도생활체육대축전 참가선수단 결단식 개최', summary: '시흥시 체육 발전과 선수들의 선전을 기원하며 힘찬 출발을 다짐했다.' },
+            { id: '390393', title: '시흥 배곧신도시 미래 모빌리티 실증단지 조성 가속화', summary: '자율주행 및 친환경 미래 교통 인프라 구축 본격 추진' }
         ].map(item => ({ ...item, url: `https://radio20.net/${item.id}`, thumbnail: '' }));
 
         const DEFAULT_FALLBACK_IMG = 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&auto=format&fit=crop&q=80';
@@ -1022,10 +1014,10 @@
             const it1 = items[1] || {};
             const it2 = items[2] || {};
             const it3 = items[3] || items[0] || {};
-            const rightItems = items.slice(4, 8);
-            if (rightItems.length < 4 && items.length > 4) {
+            const rightItems = items.slice(4, 9);
+            if (rightItems.length < 5 && items.length > 4) {
                 // if fewer, fill from remaining
-                while (rightItems.length < 4 && items[rightItems.length]) {
+                while (rightItems.length < 5 && items[rightItems.length]) {
                     rightItems.push(items[rightItems.length]);
                 }
             }
@@ -1062,7 +1054,6 @@
                     <a class="sh-center-hero" ${linkAttrs(it3)}>
                         ${imgTag(shUpscaleThumb(it3.thumbnail, 'R800x0'), 'sh-center-hero-img')}
                         <div>
-                            <span class="sh-badge-hot">TODAY'S FOCUS</span>
                             <span class="sh-center-title line-clamp-2">${escapeHtml(it3.title)}</span>
                             ${it3.summary ? `<span class="sh-center-summary line-clamp-3">${escapeHtml(it3.summary)}</span>` : ''}
                         </div>
@@ -1070,7 +1061,7 @@
                 </div>
             `;
 
-            const categories = ['시정/행정', '사회/지역', '문화/예술', '기획/칼럼'];
+            const categories = ['시정/행정', '사회/지역', '문화/예술', '기획/칼럼', '지역/종합'];
             const rightHtml = `
                 <div class="sh-col sh-col-divider">
                     ${rightItems.map((item, idx) => `
