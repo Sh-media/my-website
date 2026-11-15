@@ -106,119 +106,196 @@
         .news-banner-label { font-size: 13px; font-weight: 700; color: #334155; }
         .bottom-text-link { min-height: 58px; display: flex; align-items: center; gap: 10px; padding: 0 24px; font-size: 13px; font-weight: 700; color: #334155; border: 1px solid #e2e8f0; background: #fff; border-radius: 8px; }
         .bottom-text-link:hover { color: #1e40af; }
-        /* ===== 하단: 시흥미디어 뉴스 3단 배치 (빈 공간 없이 꽉 채운 균형 레이아웃) ===== */
+        /* ===== 하단: 시흥미디어 뉴스 3단 배치 (중앙일보·조선일보 비대칭 프리미엄 그리드) ===== */
         .sh-grid-container {
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-top: 3px solid #0f172a;
             border-radius: 8px;
-            padding: 18px 20px;
+            padding: 20px 22px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
         .sh-grid {
-            --sh-cols: 1.1fr 1.4fr 1.1fr;
             display: grid;
-            grid-template-columns: var(--sh-cols);
-            gap: 0;
+            grid-template-columns: 3.2fr 5fr 3.4fr;
+            gap: 22px;
         }
-        .sh-col { min-width: 0; padding: 0 18px; }
-        .sh-col:first-child { padding-left: 0; }
-        .sh-col:last-child { padding-right: 0; }
-        .sh-col + .sh-col { border-left: 1px solid #f1f5f9; }
+        @media (max-width: 1023px) {
+            .sh-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+        .sh-col { min-width: 0; }
+        .sh-col-divider {
+            border-left: 1px solid #f1f5f9;
+            padding-left: 22px;
+        }
+        @media (max-width: 1023px) {
+            .sh-col-divider {
+                border-left: 0;
+                padding-left: 0;
+                border-top: 1px solid #f1f5f9;
+                padding-top: 20px;
+            }
+        }
 
-        /* 좌우측 카드 아이템: 썸네일 + 제목 + 기사 일부(요약) 완벽 구성 */
-        .sh-item-card {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            padding: 11px 0;
-            border-top: 1px solid #f1f5f9;
-            color: #1e293b;
-            transition: all 0.15s ease;
+        /* 좌측 상단 비주얼 카드 */
+        .sh-left-lead {
+            display: block;
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #f1f5f9;
         }
-        .sh-item-card:first-child {
-            border-top: 0;
-            padding-top: 0;
-        }
-        .sh-card-body {
-            flex: 1;
-            min-width: 0;
-        }
-        .sh-card-thumb-img {
-            flex: none;
-            width: 84px;
-            height: 60px;
+        .sh-left-lead-img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            max-height: 155px;
             object-fit: cover;
             border-radius: 6px;
-            background: #f8fafc;
             border: 1px solid #e2e8f0;
+            background: #f8fafc;
         }
-        .sh-card-title {
-            font-size: 13.5px;
-            font-weight: 600;
+        .sh-left-lead-title {
+            font-size: 14.5px;
+            font-weight: 700;
             line-height: 1.42;
-            letter-spacing: -0.015em;
+            letter-spacing: -0.02em;
             color: #0f172a;
+            margin-top: 9px;
             word-break: keep-all;
             display: block;
         }
-        .sh-card-summary {
+        .sh-left-lead:hover .sh-left-lead-title { color: #1d4ed8; text-decoration: underline; text-underline-offset: 3px; }
+        .sh-left-lead-summary {
             font-size: 12px;
             font-weight: 400;
-            line-height: 1.5;
+            line-height: 1.55;
             color: #64748b;
             margin-top: 4px;
             word-break: keep-all;
             display: block;
         }
-        .sh-item-card:hover .sh-card-title {
-            color: #1d4ed8;
-            text-decoration: underline;
-            text-underline-offset: 3px;
+
+        /* 좌측 서브 가로형 카드 */
+        .sh-sub-card {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 9px 0;
+            border-top: 1px solid #f1f5f9;
+        }
+        .sh-sub-card:first-child { border-top: 0; padding-top: 0; }
+        .sh-sub-body { flex: 1; min-width: 0; }
+        .sh-sub-title {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #1e293b;
+            letter-spacing: -0.015em;
+            word-break: keep-all;
+            display: block;
+        }
+        .sh-sub-card:hover .sh-sub-title { color: #1d4ed8; text-decoration: underline; text-underline-offset: 2px; }
+        .sh-sub-summary {
+            font-size: 11.5px;
+            color: #64748b;
+            line-height: 1.45;
+            margin-top: 3px;
+            display: block;
+        }
+        .sh-sub-thumb {
+            width: 72px;
+            height: 52px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            flex: none;
+            background: #f8fafc;
         }
 
-        /* 중앙 포커스 히어로 카드 */
-        .sh-hero {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding-bottom: 14px;
-            margin-bottom: 4px;
-            border-bottom: 1px solid #f1f5f9;
+        /* 중앙 거대 센터피스 히어로 */
+        .sh-center-hero {
+            display: block;
         }
-        .sh-hero:hover .sh-hero-title {
-            color: #1d4ed8;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
-        .sh-hero-img {
+        .sh-center-hero-img {
             width: 100%;
-            aspect-ratio: 16 / 9;
-            max-height: 200px;
+            aspect-ratio: 16 / 10;
+            max-height: 250px;
             object-fit: cover;
             border-radius: 6px;
-            background: #f8fafc;
             border: 1px solid #e2e8f0;
+            background: #f8fafc;
         }
-        .sh-hero-body { min-width: 0; }
-        .sh-hero-title {
-            font-size: 16.5px;
-            font-weight: 700;
-            line-height: 1.45;
-            letter-spacing: -0.02em;
+        .sh-badge-hot {
+            display: inline-block;
+            background: #dc2626;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            margin-top: 10px;
+            margin-bottom: 6px;
+        }
+        .sh-center-title {
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.38;
+            letter-spacing: -0.025em;
             color: #0f172a;
             word-break: keep-all;
             display: block;
         }
-        .sh-hero-summary {
-            margin-top: 6px;
-            font-size: 12.5px;
+        .sh-center-hero:hover .sh-center-title { color: #1d4ed8; text-decoration: underline; text-underline-offset: 4px; }
+        .sh-center-summary {
+            font-size: 13px;
             font-weight: 400;
             line-height: 1.6;
-            color: #64748b;
+            color: #475569;
+            margin-top: 7px;
             word-break: keep-all;
             display: block;
         }
+
+        /* 우측 목록 카드 (카테고리 + 제목 + 우측 썸네일) */
+        .sh-right-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 9.5px 0;
+            border-top: 1px solid #f1f5f9;
+        }
+        .sh-right-item:first-child { border-top: 0; padding-top: 0; }
+        .sh-right-body { flex: 1; min-width: 0; }
+        .sh-right-cat {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #b91c1c;
+            margin-bottom: 2px;
+            display: block;
+        }
+        .sh-right-title {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.42;
+            color: #1e293b;
+            letter-spacing: -0.015em;
+            word-break: keep-all;
+            display: block;
+        }
+        .sh-right-item:hover .sh-right-title { color: #1d4ed8; text-decoration: underline; text-underline-offset: 2px; }
+        .sh-right-thumb {
+            width: 68px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            flex: none;
+            background: #f8fafc;
+        }
+
         @media (max-width: 1023px) {
             .sh-grid { grid-template-columns: 1fr; padding: 4px 16px; }
             .sh-col, .sh-col:first-child, .sh-col:last-child { padding: 0; }
@@ -383,6 +460,7 @@
                 <div class="flex items-center gap-2.5">
                     <span class="w-2.5 h-2.5 bg-brand-700 rounded-xs"></span>
                     <h2 class="text-lg font-bold tracking-tight text-slate-900">시흥미디어 뉴스</h2>
+                    <span class="text-xs text-slate-400 font-medium">| SMD NEWS</span>
                 </div>
                 <div class="flex items-center gap-3 text-xs text-slate-500">
                     <span id="shMediaStatus" class="font-normal text-slate-400"></span>
@@ -928,7 +1006,6 @@
             if (statusEl) statusEl.textContent = note;
 
             if (!items.length) {
-                grid.style.setProperty('--sh-cols', '1fr');
                 grid.innerHTML = '<div class="py-10 text-center text-sm text-slate-400">시흥미디어 최신 기사를 불러오는 중입니다…</div>';
                 return;
             }
@@ -936,50 +1013,79 @@
             const linkAttrs = item => `href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer"`;
             const imgTag = (src, cls) => `<img class="${cls}" src="${escapeHtml(src || DEFAULT_FALLBACK_IMG)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${DEFAULT_FALLBACK_IMG}';">`;
 
-            // 모든 좌우 아이템에 썸네일 + 제목 + 기사 요약 적용
-            const cardItem = item => `
-                <a class="sh-item-card" ${linkAttrs(item)}>
-                    ${imgTag(item.thumbnail, 'sh-card-thumb-img')}
-                    <div class="sh-card-body">
-                        <span class="sh-card-title line-clamp-2">${escapeHtml(item.title)}</span>
-                        ${item.summary ? `<span class="sh-card-summary line-clamp-2">${escapeHtml(item.summary)}</span>` : ''}
-                    </div>
-                </a>`;
-
-            const heroItem = item => `
-                <a class="sh-hero" ${linkAttrs(item)}>
-                    ${imgTag(shUpscaleThumb(item.thumbnail, 'R800x0'), 'sh-hero-img')}
-                    <div class="sh-hero-body">
-                        <span class="sh-hero-title line-clamp-2">${escapeHtml(item.title)}</span>
-                        ${item.summary ? `<span class="sh-hero-summary line-clamp-3">${escapeHtml(item.summary)}</span>` : ''}
-                    </div>
-                </a>`;
-
-            // 최신글을 왼쪽(4개) → 가운데(대표 1 + 목록 2) → 오른쪽(4개) 순서로 분배하여 높이를 균등하게 채움
-            let cursor = 0;
-            const [left, center, right] = SH_MEDIA_COLUMN_SIZES.map(size => {
-                const chunk = items.slice(cursor, cursor + size);
-                cursor += size;
-                return chunk;
-            });
-
-            const cols = [];
-            const widths = [];
-            if (left.length) {
-                cols.push(`<div class="sh-col">${left.map(cardItem).join('')}</div>`);
-                widths.push('1.1fr');
-            }
-            if (center.length) {
-                cols.push(`<div class="sh-col">${heroItem(center[0])}${center.slice(1).map(cardItem).join('')}</div>`);
-                widths.push('1.4fr');
-            }
-            if (right.length) {
-                cols.push(`<div class="sh-col">${right.map(cardItem).join('')}</div>`);
-                widths.push('1.1fr');
+            // 중앙일보·조선일보 스타일 비대칭 3단 레이아웃 분배
+            // Item 0: 좌측 상단 와이드 비주얼 카드
+            // Item 1, 2: 좌측 하단 2개 서브 카드 (썸네일 우측)
+            // Item 3: 중앙 거대 센터피스 히어로
+            // Item 4, 5, 6, 7: 우측 4개 정갈한 리스트 카드
+            const it0 = items[0] || {};
+            const it1 = items[1] || {};
+            const it2 = items[2] || {};
+            const it3 = items[3] || items[0] || {};
+            const rightItems = items.slice(4, 8);
+            if (rightItems.length < 4 && items.length > 4) {
+                // if fewer, fill from remaining
+                while (rightItems.length < 4 && items[rightItems.length]) {
+                    rightItems.push(items[rightItems.length]);
+                }
             }
 
-            grid.style.setProperty('--sh-cols', widths.join(' '));
-            grid.innerHTML = cols.join('');
+            const leftHtml = `
+                <div class="sh-col">
+                    ${it0.title ? `
+                    <a class="sh-left-lead" ${linkAttrs(it0)}>
+                        ${imgTag(shUpscaleThumb(it0.thumbnail, 'R600x0'), 'sh-left-lead-img')}
+                        <span class="sh-left-lead-title line-clamp-2">${escapeHtml(it0.title)}</span>
+                        ${it0.summary ? `<span class="sh-left-lead-summary line-clamp-2">${escapeHtml(it0.summary)}</span>` : ''}
+                    </a>` : ''}
+                    ${it1.title ? `
+                    <a class="sh-sub-card" ${linkAttrs(it1)}>
+                        <div class="sh-sub-body">
+                            <span class="sh-sub-title line-clamp-2">${escapeHtml(it1.title)}</span>
+                            ${it1.summary ? `<span class="sh-sub-summary line-clamp-1">${escapeHtml(it1.summary)}</span>` : ''}
+                        </div>
+                        ${imgTag(it1.thumbnail, 'sh-sub-thumb')}
+                    </a>` : ''}
+                    ${it2.title ? `
+                    <a class="sh-sub-card" ${linkAttrs(it2)}>
+                        <div class="sh-sub-body">
+                            <span class="sh-sub-title line-clamp-2">${escapeHtml(it2.title)}</span>
+                            ${it2.summary ? `<span class="sh-sub-summary line-clamp-1">${escapeHtml(it2.summary)}</span>` : ''}
+                        </div>
+                        ${imgTag(it2.thumbnail, 'sh-sub-thumb')}
+                    </a>` : ''}
+                </div>
+            `;
+
+            const centerHtml = `
+                <div class="sh-col sh-col-divider">
+                    <a class="sh-center-hero" ${linkAttrs(it3)}>
+                        ${imgTag(shUpscaleThumb(it3.thumbnail, 'R800x0'), 'sh-center-hero-img')}
+                        <div>
+                            <span class="sh-badge-hot">TODAY'S FOCUS</span>
+                            <span class="sh-center-title line-clamp-2">${escapeHtml(it3.title)}</span>
+                            ${it3.summary ? `<span class="sh-center-summary line-clamp-3">${escapeHtml(it3.summary)}</span>` : ''}
+                        </div>
+                    </a>
+                </div>
+            `;
+
+            const categories = ['시정/행정', '사회/지역', '문화/예술', '기획/칼럼'];
+            const rightHtml = `
+                <div class="sh-col sh-col-divider">
+                    ${rightItems.map((item, idx) => `
+                        <a class="sh-right-item" ${linkAttrs(item)}>
+                            <div class="sh-right-body">
+                                <span class="sh-right-cat">${categories[idx % categories.length]}</span>
+                                <span class="sh-right-title line-clamp-2">${escapeHtml(item.title)}</span>
+                            </div>
+                            ${imgTag(item.thumbnail, 'sh-right-thumb')}
+                        </a>
+                    `).join('')}
+                </div>
+            `;
+
+            grid.innerHTML = leftHtml + centerHtml + rightHtml;
         }
 
         async function refreshShMediaLatest() {
