@@ -575,6 +575,7 @@
                             <select id="inputCategory" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-brand-600 focus:border-brand-600 block w-full p-2.5">
                                 <option value="시정/행정">시정/행정</option>
                                 <option value="사회/지역">사회/지역</option>
+                                <option value="교육">교육</option>
                                 <option value="문화/예술">문화/예술</option>
                                 <option value="기획/칼럼">기획/칼럼</option>
                             </select>
@@ -1161,8 +1162,9 @@
         function scoreImageUrl(url, alt = '') {
             const s = `${url} ${alt}`.toLowerCase();
             let score = 0;
+            if (/img\.youtube\.com\/vi\/|ytimg\.com/i.test(url)) score += 15;
             if (/article|news|content|upload|editor|photo|image|attach|file|thumbnail|thumb/.test(s)) score += 6;
-            if (/logo|icon|favicon|banner|button|sns|facebook|twitter|youtube|sprite/.test(s)) score -= 10;
+            if (/logo|icon|favicon|banner|button|sns|facebook|twitter|sprite/.test(s)) score -= 10;
             if (/\.(jpg|jpeg|png|webp|gif|avif)(\?|$)/i.test(url)) score += 3;
             return score;
         }
@@ -1225,10 +1227,30 @@
                 ));
             });
 
+            // YouTube 임베드 영상 섬네일 자동 감지
+            doc.querySelectorAll('iframe[src*="youtube.com"], iframe[src*="youtu.be"]').forEach(iframe => {
+                const src = iframe.getAttribute('src') || '';
+                const m = src.match(/(?:embed\/|v\/|watch\?v=)([a-zA-Z0-9_-]{11})/i);
+                if (m) {
+                    pushImage(`https://img.youtube.com/vi/${m[1]}/maxresdefault.jpg`, 'YouTube 영상 썸네일');
+                    pushImage(`https://img.youtube.com/vi/${m[1]}/hqdefault.jpg`, 'YouTube 영상 썸네일');
+                }
+            });
+
             imageCandidates.sort((a, b) => scoreImageUrl(b.url, b.alt) - scoreImageUrl(a.url, a.alt));
             const image = imageCandidates[0]?.url || '';
-            const description = getMeta('og:description', 'twitter:description', 'description') ||
-                doc.querySelector('article p')?.textContent?.trim() || '';
+            
+            // 기사 요약 추출 (og:description 보완 및 본문 문장 조합)
+            let description = getMeta('og:description', 'twitter:description', 'description') || '';
+            if (!description || description.length < 15 || /구독|포털|뉴스홈|기자|무단전재|배포금지|대한민국 24시간/i.test(description)) {
+                const pElements = Array.from(doc.querySelectorAll('article p, .article-view-content p, #article-view-content-div p, .news_view p, .article_body p, #articeBody p, #newsct_article, .view-content p, p'));
+                const meaningful = pElements
+                    .map(p => p.textContent.trim())
+                    .filter(t => t.length > 25 && !/무단전재|저작권|제보|기자|사진=|ⓒ|뉴스홈|카카오톡|네이버|구독/i.test(t));
+                if (meaningful.length > 0) {
+                    description = meaningful.slice(0, 3).join(' ').slice(0, 280);
+                }
+            }
             return { title, image, description };
         }
 
@@ -1300,19 +1322,44 @@
             if (!targetUrl || !/^https?:\/\//i.test(targetUrl)) return;
             if (!silent) statusElem.classList.remove('hidden');
 
+            // 1) 유튜브 직접 링크인 경우 (oEmbed 공식 API로 즉시 100% 추출)
+            const ytMatch = targetUrl.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i);
+            if (ytMatch) {
+                const vid = ytMatch[1];
+                let title = '';
+                try {
+                    const oembed = JSON.parse(await fetchText(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${vid}&format=json`, 5000));
+                    title = oembed.title || '';
+                } catch (e) {}
+                const ytResult = {
+                    title: cleanArticleTitle(title),
+                    image: `https://img.youtube.com/vi/${vid}/maxresdefault.jpg`,
+                    description: title ? `${title} (YouTube 영상)` : 'YouTube 영상'
+                };
+                const titleEl = document.getElementById('inputTitle');
+                const thumbEl = document.getElementById('inputThumbnail');
+                const summaryEl = document.getElementById('inputSummary');
+                if (ytResult.title) titleEl.value = ytResult.title;
+                thumbEl.value = ytResult.image;
+                if (ytResult.description) summaryEl.value = ytResult.description;
+                if (!silent) {
+                    showToast('YouTube 영상 썸네일과 제목을 가져왔습니다.');
+                    statusElem.classList.add('hidden');
+                }
+                return ytResult;
+            }
+
             const attempts = [
+                ['Codetabs Proxy', async () => parseArticleHtml(await fetchText(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`, 15000), targetUrl)],
+                ['AllOrigins Raw', async () => parseArticleHtml(await fetchText(`https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`, 15000), targetUrl)],
                 ['SNS형 메타데이터 서버', () => fetchMicrolinkMetadata(targetUrl)],
-                ['직접 접속', async () => parseArticleHtml(await fetchText(targetUrl), targetUrl)],
-                ['HTTPS 재접속', async () => {
-                    const u = new URL(targetUrl); if (u.protocol !== 'http:') throw new Error('skip');
-                    u.protocol = 'https:'; return parseArticleHtml(await fetchText(u.href), u.href);
-                }],
-                ['Jina Reader', async () => parseJinaMarkdown(await fetchText(`https://r.jina.ai/${targetUrl}`, 25000), targetUrl)],
-                ['AllOrigins', async () => {
-                    const data = JSON.parse(await fetchText(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, 25000));
+                ['CorsProxy', async () => parseArticleHtml(await fetchText(`https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`, 15000), targetUrl)],
+                ['Jina Reader', async () => parseJinaMarkdown(await fetchText(`https://r.jina.ai/${targetUrl}`, 20000), targetUrl)],
+                ['AllOrigins JSON', async () => {
+                    const data = JSON.parse(await fetchText(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, 15000));
                     return parseArticleHtml(data.contents || '', targetUrl);
                 }],
-                ['CorsProxy', async () => parseArticleHtml(await fetchText(`https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`, 25000), targetUrl)]
+                ['직접 접속', async () => parseArticleHtml(await fetchText(targetUrl), targetUrl)]
             ];
 
             let result = null, used = '';
@@ -2587,7 +2634,7 @@ function cancelBannerEdit() {
                     </div>
                     <div class="flex items-center gap-1 shrink-0">
                         <select data-category-id="${String(item.id).replace(/"/g, '&quot;')}" title="카테고리 변경" class="article-category-select bg-white border border-slate-300 text-[10px] text-slate-700 rounded-md px-1.5 py-1">
-                            ${['시정/행정','사회/지역','문화/예술','기획/칼럼'].map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                            ${['시정/행정','사회/지역','교육','문화/예술','기획/칼럼'].map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
                         </select>
                         <button type="button" data-move="up" data-move-id="${String(item.id).replace(/"/g, '&quot;')}" title="위로 이동" aria-label="기사 위로 이동" class="text-xs text-slate-500 hover:text-brand-700 hover:bg-slate-200 p-2 rounded-lg transition ${index === 0 ? 'opacity-30 pointer-events-none' : ''}">
                             <i class="fa-solid fa-chevron-up pointer-events-none"></i>
