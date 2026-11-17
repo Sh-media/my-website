@@ -4320,13 +4320,13 @@ async function loadSiheungWeather() {
 
 
 
-                        <div class="news-dropzone lg:col-span-3 border-l border-slate-200 px-0 lg:px-5 mt-7 lg:mt-0 space-y-4" ondragover="allowZoneDrop(event)" ondragleave="leaveZoneDrop(event)" ondrop="dropNewsZone(event, 'major')">
+                        <div class="news-dropzone lg:col-span-3 border-l border-slate-200 px-0 lg:px-5 mt-7 lg:mt-0 space-y-2.5" ondragover="allowZoneDrop(event)" ondragleave="leaveZoneDrop(event)" ondrop="dropNewsZone(event, 'major')">
 
                             ${majorNews.length ? majorNews.map((item, idx) => `
 
-                                <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'major', '${item.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'major', '${item.id}')" class="news-item-draggable group ${idx > 0 ? 'pt-4 border-t border-slate-200' : ''} cursor-move">
+                                <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'major', '${item.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'major', '${item.id}')" class="news-item-draggable group ${idx > 0 ? 'pt-2.5 border-t border-slate-200' : ''} cursor-move">
 
-                                    <div class="relative h-[150px] sm:h-[170px] lg:h-[105px] bg-slate-100 overflow-hidden rounded-lg mb-2">
+                                    <div class="relative h-[130px] sm:h-[145px] lg:h-[92px] bg-slate-100 overflow-hidden rounded-lg mb-1.5">
 
                                         <a href="${item.url}" target="_blank" rel="noopener noreferrer" draggable="false" class="block w-full h-full">
 
@@ -4373,7 +4373,7 @@ async function loadSiheungWeather() {
                                     </h3>
 
                                     ${item.summary ? `
-                                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed ${majorNews.length > 2 ? 'line-clamp-1' : 'line-clamp-2'}">
+                                    <p class="text-xs text-slate-500 mt-1 leading-relaxed ${majorNews.length > 2 ? 'line-clamp-1' : 'line-clamp-2'}">
                                         ${item.summary}
                                     </p>` : ''}
 
