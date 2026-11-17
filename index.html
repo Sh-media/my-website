@@ -4372,6 +4372,11 @@ async function loadSiheungWeather() {
 
                                     </h3>
 
+                                    ${item.summary ? `
+                                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed ${majorNews.length > 2 ? 'line-clamp-1' : 'line-clamp-2'}">
+                                        ${item.summary}
+                                    </p>` : ''}
+
                                 </article>
 
                             `).join('') : '<div class="text-sm text-slate-400 py-8">주요뉴스를 1~4개 지정하면 이곳에 표시됩니다.</div>'}
