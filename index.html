@@ -1569,7 +1569,7 @@
             { id: '390482', title: '시흥아트센터 개관… 시흥시 첫 전문예술 공연장 문 열었다', summary: '시흥시(시장 임병택)는 지난 13일 시흥아트센터에서 시민과 내빈 등 700여 명이 참석한 가운데 ‘2026 시흥아트센터 개관식 및 개관축하공연’을 개최했다. 배곧동에 건립된 전문예술 공연장이다.', thumbnail: 'https://blog.kakaocdn.net/dn/cEwCvw/dJMcag8ItDw/GQMzEoHrTYOMfgoHJBKzgC1l45l0rYJcjPwhpRI3tjN/img.jpg' },
             { id: '390481', title: '잠자는 카드포인트 2.1조 원, 2027년부터 동네 골목상권 ‘지역화폐’로 바뀐다', summary: '국민권익위원회와 금융위원회는 13일 소멸 위기에 놓인 카드사 포인트를 지역사랑상품권으로 통합 전환해 소상공인과 골목상권에 직접 유입시키는 제도 개선 방안을 발표했다.', thumbnail: 'https://blog.kakaocdn.net/dn/cvh9jP/dJMb98TqLzJ/kZ1oP2qR4sT5uV6wX7yZ8K/img.jpg' },
             { id: '390480', title: '시흥 은계 아파트 세 모자 참변… 외부 침입 없는 비극, 경찰 "고교생 큰아들 범행 가능성 무게"', summary: '경기도 시흥시의 한 아파트에서 40대 어머니와 10대 두 아들 등 일가족 세 명이 숨진 채 발견돼 경찰이 수사에 나섰다. 평온했던 주거 단지에서 하루아침에 전해진 일가족의 참변에 지역 사회가 큰 충격에 휩싸였다.', thumbnail: 'https://blog.kakaocdn.net/dn/cjtjxP/dJMcacSE5vX/3hlHyCGwJGY0Jf6PFyO06k/img.jpg' }
-        ];
+        ].map(item => ({ ...item, url: item.url || `https://radio20.net/${item.id}` }));
 
         const DEFAULT_FALLBACK_IMG = 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&auto=format&fit=crop&q=80';
         const STORAGE_KEY = 'siheung_news_portal_v15';
