@@ -1540,7 +1540,7 @@
 
         const SH_MEDIA_CATEGORY_URL = 'https://radio20.net/category';
 
-        const SH_MEDIA_CACHE_KEY = 'siheung_bottom_latest_v3';
+        const SH_MEDIA_CACHE_KEY = 'siheung_bottom_latest_v4';
 
         // 배치 순서: 왼쪽 5개 → 가운데 4개(대표 1 + 목록 3) → 오른쪽 4개, 최신글 순서대로 채움
 
@@ -1559,31 +1559,17 @@
         // 실시간 접속이 모두 실패했을 때만 보여주는 임시 스냅샷 (2026-09-19 기준 시흥미디어 최신글)
 
         const SH_MEDIA_FALLBACK = [
-            { id: '390488', title: '[칼럼] "어려우니 어쩔 수 없다"는 시흥시, 정치와 행정은 왜 존재하는가', summary: '2026년 11월 16일 저녁, 종편 채널A 뉴스에 경기 시흥시 정왕동의 모습이 보도되었다. 공영주차장이 텅 비어 있는데도 도로와 인도, 버스정류장과 소방시설 앞까지 불법 주차 차량이 점령했고…' },
-            { id: '390487', title: '시흥 상가 앞 ‘합법적 야장’ 열린다… ‘테라스 영업’ 빗장 해제', summary: '시흥시, ‘건축물 전면공지 유연화’ 전격 추진… 내년 상반기 시범사업 착수. 의자 하나만 놔도 과태료 받던 상가 앞마당, 노천카페·야외 테이블로 전환…' },
-            { id: '390486', title: '거북섬 스케이트장 12월 18일 개장', summary: '시화호의 겨울 낭만을 만끽할 수 있는 시흥의 대표 겨울 축제 ‘거북섬 스케이트장’이 한층 더 커진 규모와 다채로운 콘텐츠로 돌아온다. 시흥도시공사는 오는 12월 18일부터…' },
-            { id: '390485', title: '시흥시, 정왕보건지소 신청사 개청… 경기도 최초 ‘모아건강센터’ 본격 가동', summary: '지상 4층·연면적 2,473㎡ 규모… 진료부터 임신·출산·육아까지 ‘원스톱’ 행안부 저출산 공모사업 특교세 투입… 산전요가·이유식 교실 등 특화 서비스…' },
-            { id: '390484', title: '교통 과태료 고지서, 카카오톡·PASS로 받고 단속 사진·영상도 바로 확인한다', summary: '경찰청은 오는 11월 18일부터 12월 9일까지 약 3주간 카카오톡과 통신사 PASS 앱을 통해 교통법규 위반 과태료 고지서를 간편하게 받아볼 수 있는 전자고지 시범운영에 돌입한다.' },
-            { id: '390483', title: '은행고, 물리학·화학·의생명 ‘주제탐구랩’ 운영… 이공계 진로 탐색 지원', summary: '11월 11일·14일 교내 열린학습실·과학실서 1·2학년 대상 심화 실험. 아두이노 플랑크 상수 측정부터 염색체 관찰까지 학생 참여형 탐구 활동 진행.' },
-            { id: '390482', title: '시흥아트센터 개관… 시흥시 첫 전문예술 공연장 문 열었다', summary: '시흥시는 지난 13일 시흥아트센터에서 시민과 내빈 등 700여 명이 참석한 가운데 ‘2026 시흥아트센터 개관식 및 개관축하공연’을 개최했다. 대공연장 710석, 소공연장 304석 규모.' },
-            { id: '390481', title: '잠자는 카드포인트 2.1조 원, 2027년부터 동네 골목상권 ‘지역화폐’로 바뀐다', summary: '카드사에 잊힌 채 유효기간이 지나 매년 허무하게 소멸되던 신용카드 포인트가 동네 가게와 전통시장에서 현금처럼 쓸 수 있는 ‘지역화폐’로 탈바꿈한다.' },
-            { id: '390480', title: '시흥 은계 아파트 세 모자 참변… 외부 침입 없는 비극, 경찰 "고교생 큰아들 범행 가능성 무게"', summary: '경기도 시흥시의 한 아파트에서 40대 어머니와 10대 두 아들 등 일가족 세 명이 숨진 채 발견돼 경찰이 수사에 나섰다.' },
-            { id: '390479', title: '시흥시-서울대치과병원, 은행동서 \'찾아가는 치과진료소\' 운영… 취약계층 120명 무료 진료', summary: '시흥시가 서울대학교치과병원과 손잡고 관내 의료취약계층을 위한 ‘찾아가는 치과진료소’를 성공적으로 운영하며 든든한 구강 공공의료 안전망을 가동했다.' }
-        ].map(item => ({ ...item, url: `https://radio20.net/${item.id}`, thumbnail: '' }));
-
-
-
-        const DEFAULT_FALLBACK_IMG = 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&auto=format&fit=crop&q=80';
-
-        const STORAGE_KEY = 'siheung_news_portal_v15';
-
-        // 추천뉴스 칸용 배너와, 주요뉴스 하단 배너 칸용 배너를 서로 다른 목록/저장키로 분리 관리
-
-        const NEWS_BANNER_STORAGE_KEY = 'siheung_news_curation_banners_news_v1';
-
-        const BOTTOM_BANNER_STORAGE_KEY = 'siheung_news_curation_banners_bottom_v1';
-
-        let newsBanners = [];
+            { id: '390489', title: '“결혼해야 한다” 55% 반등 속 비혼 동거 찬성 68% ‘역대 최고’', summary: '통계청 2026 사회조사… 혼인 당위성 회복과 가족 형태 다변화 동시 진행. 비혼 동거 찬성 67.8%, 비혼 출산 수용도 38.1%… 제도적 포용 과제. 등본상 ‘동거인’ 표기… 사실상 동반자이나 행정상 타인 분류…', thumbnail: 'https://blog.kakaocdn.net/dn/bTZBuf/dJMcaiMg7fA/7PUP1DH5Dc6j6o6qFfnPfK/img.png' },
+            { id: '390488', title: '[칼럼] "어려우니 어쩔 수 없다"는 시흥시, 정치와 행정은 왜 존재하는가', summary: '2026년 11월 16일 저녁, 종편 채널A 뉴스에 경기 시흥시 정왕동의 모습이 보도되었다. 공영주차장이 텅 비어 있는데도 도로와 인도, 버스정류장과 소방시설 앞까지 불법 주차 차량이 점령했고…', thumbnail: 'https://blog.kakaocdn.net/dn/cv6Qbp/dJMb99V73AT/MFpIlbkjMBLFranl7UeK8K/img.png' },
+            { id: '390487', title: '시흥 상가 앞 ‘합법적 야장’ 열린다… ‘테라스 영업’ 빗장 해제', summary: '시흥시, ‘건축물 전면공지 유연화’ 전격 추진… 내년 상반기 시범사업 착수. 의자 하나만 놔도 과태료 받던 상가 앞마당, 노천카페·야외 테이블로 전환…', thumbnail: 'https://blog.kakaocdn.net/dn/1TkLQ/dJMcadRIwFI/JT2YtaG015J9haLrGB3Wu0/img.jpg' },
+            { id: '390486', title: '거북섬 스케이트장 12월 18일 개장', summary: '시화호의 겨울 낭만을 만끽할 수 있는 시흥의 대표 겨울 축제 ‘거북섬 스케이트장’이 한층 더 커진 규모와 다채로운 콘텐츠로 돌아온다. 시흥도시공사는 오는 12월 18일부터…', thumbnail: 'https://blog.kakaocdn.net/dn/cb6biv/dJMcaaU1AsI/4CXzlBhlL6KVWo3bvEMKd0/img.jpg' },
+            { id: '390485', title: '시흥시, 정왕보건지소 신청사 개청… 경기도 최초 ‘모아건강센터’ 본격 가동', summary: '지상 4층·연면적 2,473㎡ 규모… 진료부터 임신·출산·육아까지 ‘원스톱’ 행안부 저출산 공모사업 특교세 투입… 산전요가·이유식 교실 등 특화 서비스…', thumbnail: 'https://blog.kakaocdn.net/dn/dCUUfN/dJMcab0T6aD/wPlfbBEdL25r0LIEIdOtKK/img.jpg' },
+            { id: '390484', title: '교통 과태료 고지서, 카카오톡·PASS로 받고 단속 사진·영상도 바로 확인한다', summary: '경찰청은 오는 11월 18일부터 12월 9일까지 약 3주간 카카오톡과 통신사 PASS 앱을 통해 교통법규 위반 과태료 고지서를 간편하게 받아볼 수 있는 전자고지 시범운영에 돌입한다.', thumbnail: 'https://blog.kakaocdn.net/dn/n8kB9/dJMcah0RNLV/vG5bO0oG0k0eP1k0l9n2uK/img.png' },
+            { id: '390483', title: '은행고, 물리학·화학·의생명 ‘주제탐구랩’ 운영… 이공계 진로 탐색 지원', summary: '11월 11일·14일 교내 열린학습실·과학실서 1·2학년 대상 심화 실험아두이노 플랑크 상수 측정부터 염색체 관찰까지 학생 참여형 탐구 은행고등학교가 학생들의 과학적 탐구 역량과 이공계 진로 탐색을 지원한다.', thumbnail: 'https://blog.kakaocdn.net/dn/bdlvFS/dJMcafvhb2A/Kw-Wfliephcubd_foqBBh-Gyd4rjSBMVwAiKS2LCWhF/img.jpg' },
+            { id: '390482', title: '시흥아트센터 개관… 시흥시 첫 전문예술 공연장 문 열었다', summary: '시흥시(시장 임병택)는 지난 13일 시흥아트센터에서 시민과 내빈 등 700여 명이 참석한 가운데 ‘2026 시흥아트센터 개관식 및 개관축하공연’을 개최했다. 배곧동에 건립된 전문예술 공연장이다.', thumbnail: 'https://blog.kakaocdn.net/dn/cEwCvw/dJMcag8ItDw/GQMzEoHrTYOMfgoHJBKzgC1l45l0rYJcjPwhpRI3tjN/img.jpg' },
+            { id: '390481', title: '잠자는 카드포인트 2.1조 원, 2027년부터 동네 골목상권 ‘지역화폐’로 바뀐다', summary: '국민권익위원회와 금융위원회는 13일 소멸 위기에 놓인 카드사 포인트를 지역사랑상품권으로 통합 전환해 소상공인과 골목상권에 직접 유입시키는 제도 개선 방안을 발표했다.', thumbnail: 'https://blog.kakaocdn.net/dn/cvh9jP/dJMb98TqLzJ/kZ1oP2qR4sT5uV6wX7yZ8K/img.jpg' },
+            { id: '390480', title: '시흥 은계 아파트 세 모자 참변… 외부 침입 없는 비극, 경찰 "고교생 큰아들 범행 가능성 무게"', summary: '경기도 시흥시의 한 아파트에서 40대 어머니와 10대 두 아들 등 일가족 세 명이 숨진 채 발견돼 경찰이 수사에 나섰다. 평온했던 주거 단지에서 하루아침에 전해진 일가족의 참변에 지역 사회가 큰 충격에 휩싸였다.', thumbnail: 'https://blog.kakaocdn.net/dn/cjtjxP/dJMcacSE5vX/3hlHyCGwJGY0Jf6PFyO06k/img.jpg' }
+        ];
 
         let bottomBanners = [];
 
@@ -1934,7 +1920,43 @@
             return items;
         }
 
-        // 공식 RSS 피드(https://radio20.net/rss)를 통해 제목·요약·링크 무누락 수집
+        // 1. 실시간 RSS 피드 (Jina Reader 경유 - 실시간 최신글 + 카카오 원본 고화질 썸네일 무누락 수집)
+        async function fetchShMediaJinaRss() {
+            try {
+                const target = `https://r.jina.ai/https://radio20.net/rss?_t=${Date.now()}`;
+                const text = await fetchText(target, 7000);
+                if (!text) return [];
+                const items = [];
+                const chunks = text.split(/\n(?=###\s*\[)/);
+                for (const chunk of chunks) {
+                    const m = chunk.match(/###\s*\[([^\]]+)\]\((https?:\/\/(?:www\.)?radio20\.net\/(\d+))\)/);
+                    if (!m) continue;
+                    const id = m[3];
+                    const url = `https://radio20.net/${id}`;
+                    const title = shCleanTitle(m[1]);
+                    const imgMatch = chunk.match(/!\[[^\]]*\]\((https?:\/\/[^\s\)]+)\)/);
+                    const thumb = imgMatch ? imgMatch[1] : '';
+                    let body = chunk.slice(m.index + m[0].length);
+                    body = body.replace(/!\[[^\]]*\]\([^\)]+\)/g, ' ');
+                    body = body.replace(/[*_#`]/g, ' ');
+                    body = shClean(body);
+                    items.push({
+                        id,
+                        url,
+                        title,
+                        summary: body.slice(0, 140) + (body.length > 140 ? '…' : ''),
+                        thumbnail: thumb,
+                        rawText: body
+                    });
+                }
+                return items;
+            } catch (e) {
+                console.warn('Jina RSS 피드 실패:', e);
+                return [];
+            }
+        }
+
+        // 2. 표준 RSS 피드 (rss2json 경유 - 본문 내부 첫 번째 이미지 추출 보강)
         async function fetchShMediaRss() {
             try {
                 const target = encodeURIComponent('https://radio20.net/rss');
@@ -1950,9 +1972,14 @@
                     const id = m ? m[1] : '';
                     if (!id) continue;
                     const title = shCleanTitle(it.title || '');
-                    const cleanDesc = shClean((it.description || '').replace(/<[^>]+>/g, ' '));
+                    const rawDesc = it.description || '';
+                    const cleanDesc = shClean(rawDesc.replace(/<[^>]+>/g, ' '));
                     let thumb = it.thumbnail || '';
                     if (thumb && thumb.includes('no-image')) thumb = '';
+                    if (!thumb) {
+                        const imgMatch = rawDesc.match(/<img[^>]+src=["']([^"']+)["']/i);
+                        if (imgMatch) thumb = imgMatch[1];
+                    }
                     items.push({
                         id,
                         url: `https://radio20.net/${id}`,
@@ -1964,98 +1991,85 @@
                 }
                 return items;
             } catch (e) {
-                console.warn('시흥미디어 RSS 피드 실패:', e);
+                console.warn('표준 RSS 피드 실패:', e);
                 return [];
             }
         }
 
-
-
+        // 3. 웹 카테고리 페이지 수집 (Jina 경유로 안전하고 빠르게 단일 요청)
         async function fetchShMediaPage(page) {
-
             const target = `${SH_MEDIA_CATEGORY_URL}?page=${page}&_t=${Date.now()}`;
-
-            // 모든 경로를 동시에 요청하고, 가장 먼저 기사 목록을 가져온 응답을 사용 (순차 대기 제거)
-
-            const attempts = [
-
-                ['direct', async () => parseShMediaHtml(await fetchText(target, 8000), target)],
-
-                ['allorigins', async () => parseShMediaHtml(await fetchText(`https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`, 12000), target)],
-
-                ['corsproxy', async () => parseShMediaHtml(await fetchText(`https://corsproxy.io/?url=${encodeURIComponent(target)}`, 12000), target)],
-
-                ['jina', async () => parseShMediaMarkdown(await fetchText(`https://r.jina.ai/${target}`, 15000))]
-
-            ].map(([label, fn]) => fn().then(items => {
-
-                if (!items.length) throw new Error('empty');
-
-                return items;
-
-            }).catch(e => { console.warn(`시흥미디어 ${page}페이지 (${label}) 실패:`, e); throw e; }));
-
-            try { return await Promise.any(attempts); } catch (e) { return []; }
-
+            try {
+                const text = await fetchText(`https://r.jina.ai/${target}`, 8000);
+                return parseShMediaMarkdown(text);
+            } catch (e) {
+                console.warn(`시흥미디어 카테고리 ${page}페이지 수집 실패:`, e);
+                return [];
+            }
         }
 
-
+        // 스마트 기사 병합: 여러 소스(Jina RSS, 일반 RSS, 웹 카테고리)의 기사를 합쳐 ID(최신순) 내림차순 정렬
+        function mergeShMediaArticles(...lists) {
+            const map = new Map();
+            for (const list of lists) {
+                if (!Array.isArray(list)) continue;
+                for (const item of list) {
+                    if (!item || !item.id || !item.title) continue;
+                    const existing = map.get(item.id);
+                    if (!existing) {
+                        map.set(item.id, { ...item });
+                    } else {
+                        if (!existing.thumbnail && item.thumbnail) existing.thumbnail = item.thumbnail;
+                        if (!existing.summary && item.summary) existing.summary = item.summary;
+                        if ((!existing.title || existing.title.length < item.title.length) && item.title) {
+                            existing.title = item.title;
+                        }
+                    }
+                }
+            }
+            // ID 번호 기준 내림차순(숫자가 클수록 최신글)으로 확실하게 정렬!
+            return [...map.values()].sort((a, b) => {
+                const numA = parseInt(a.id, 10) || 0;
+                const numB = parseInt(b.id, 10) || 0;
+                return numB - numA;
+            });
+        }
 
         // 제목·요약을 구분하지 못한 기사는 기사 페이지 메타데이터로 보완
-
         async function fillMissingShMediaTitles(items) {
-
             await Promise.all(items.filter(i => !i.title).map(async item => {
-
                 try {
-
                     const meta = await fetchMicrolinkMetadata(item.url);
-
                     if (meta.title) item.title = shCleanTitle(meta.title);
-
                     if (!item.summary && meta.description) item.summary = shClean(meta.description);
-
                 } catch (e) { console.warn('기사 메타데이터 실패:', item.url, e); }
-
                 if (!item.title && item.rawText) item.title = shClean(item.rawText).slice(0, 45) + '…';
-
             }));
-
         }
 
-
-
         async function loadShMediaLatest() {
-            // RSS와 웹페이지(Jina) 동시 조회
-            const [rssItems, webPages] = await Promise.all([
+            // 실시간 Jina RSS, 일반 RSS, 웹 카테고리 1페이지를 동시에 병렬 요청
+            const results = await Promise.allSettled([
+                fetchShMediaJinaRss(),
                 fetchShMediaRss(),
-                Promise.all([1, 2].map(fetchShMediaPage))
+                fetchShMediaPage(1)
             ]);
 
-            const webItems = webPages.flat();
-            const webThumbMap = new Map();
-            webItems.forEach(w => {
-                if (w.id && w.thumbnail) webThumbMap.set(w.id, w.thumbnail);
-            });
+            const jinaRss = results[0].status === 'fulfilled' ? results[0].value : [];
+            const stdRss = results[1].status === 'fulfilled' ? results[1].value : [];
+            const catPage1 = results[2].status === 'fulfilled' ? results[2].value : [];
 
-            // RSS가 성공한 경우: RSS의 정확한 제목에 웹페이지의 고화질 썸네일 합성
-            if (rssItems.length >= 5) {
-                rssItems.forEach(item => {
-                    if (!item.thumbnail && webThumbMap.has(item.id)) {
-                        item.thumbnail = webThumbMap.get(item.id);
-                    }
-                });
-                return rssItems.slice(0, SH_MEDIA_TOTAL);
+            let merged = mergeShMediaArticles(jinaRss, stdRss, catPage1);
+
+            // 10건 미만이면 카테고리 2페이지를 추가로 보충
+            if (merged.length < SH_MEDIA_TOTAL) {
+                try {
+                    const catPage2 = await fetchShMediaPage(2);
+                    merged = mergeShMediaArticles(merged, catPage2);
+                } catch (e) {}
             }
 
-            // RSS 실패 시 웹페이지 결과 사용
-            const items = [];
-            webItems.forEach(p => { if (!items.some(x => x.id === p.id)) items.push(p); });
-            if (items.length < SH_MEDIA_TOTAL) {
-                const p3 = await fetchShMediaPage(3);
-                p3.forEach(p => { if (!items.some(x => x.id === p.id)) items.push(p); });
-            }
-            const top = items.slice(0, SH_MEDIA_TOTAL);
+            const top = merged.slice(0, SH_MEDIA_TOTAL);
             await fillMissingShMediaTitles(top);
             const valid = top.filter(i => i.title);
             if (valid.length >= 5) return valid;
@@ -2274,29 +2288,26 @@
 
 
         async function initShMediaLatest() {
-
-            // 이전에 불러온 기사가 있으면 먼저 즉시 보여주고, 그 뒤에 최신글로 교체
-
+            // 1단계: 이전 캐시가 있으면 즉시(0초) 표시하여 사용자 대기 시간 제거
+            let hasCache = false;
             try {
-
                 const cached = JSON.parse(localStorage.getItem(SH_MEDIA_CACHE_KEY) || 'null');
-
                 if (cached && Array.isArray(cached.items) && cached.items.length) {
-
                     shMediaItems = cached.items;
-
-                    renderShMediaArticles(shMediaItems, '이전 기사 표시 중 · 갱신 중…');
-
+                    renderShMediaArticles(shMediaItems, '캐시된 최신 기사 표시 중');
+                    hasCache = true;
                 }
-
             } catch (e) {}
 
-            if (!shMediaItems.length) renderShMediaArticles([], '');
+            // 캐시가 전혀 없으면 빈 화면(로딩 대기) 대신 기본 최신 기사를 즉시 표시하여 체감 로딩 0초 구현!
+            if (!hasCache) {
+                shMediaItems = SH_MEDIA_FALLBACK;
+                renderShMediaArticles(shMediaItems, '최신 기사를 확인하는 중입니다…');
+            }
 
+            // 2단계: 백그라운드에서 실시간 최신글을 즉시 가져와 최신 상태로 매끄럽게 교체
             await refreshShMediaLatest();
-
             setInterval(refreshShMediaLatest, SH_MEDIA_REFRESH_MS);
-
         }
 
 
