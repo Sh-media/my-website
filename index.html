@@ -174,6 +174,8 @@
 
         }
 
+        .featured-fade { animation: bannerFadeIn 0.35s ease-out; }
+
         .news-banner-row--image { line-height: 0; }
 
         .news-banner-row--image .news-banner-img-fill {
@@ -3744,6 +3746,8 @@ async function loadSiheungWeather() {
 
             initTicker();
 
+            initMajorRolling();
+
         }
 
 
@@ -4214,7 +4218,57 @@ async function loadSiheungWeather() {
 
 
 
-        function renderFeaturedArticle() {
+        // ===== 주요뉴스 하이브리드(접속 시 랜덤 + 일정시간 자동 순환 롤링) 시스템 =====
+        let currentMajorIndex = -1; // -1: 접속 시 랜덤 선정 대기
+        let majorRollingTimer = null;
+        let isMajorRollingPaused = false;
+
+        function initMajorRolling() {
+            if (majorRollingTimer) return;
+            majorRollingTimer = setInterval(() => {
+                if (isMajorRollingPaused || isAdmin) return;
+                const filtered = getFilteredArticles();
+                const majorPool = getMajorOrdered(filtered);
+                if (majorPool.length <= 1) return;
+                currentMajorIndex = (currentMajorIndex + 1) % majorPool.length;
+                renderFeaturedArticle(true);
+            }, 6000); // 6초마다 다음 주요뉴스로 순환
+        }
+
+        function pauseMajorRolling() {
+            isMajorRollingPaused = true;
+        }
+
+        function resumeMajorRolling() {
+            isMajorRollingPaused = false;
+        }
+
+        function selectMajorSlide(index) {
+            currentMajorIndex = index;
+            renderFeaturedArticle(true);
+        }
+
+        function nextMajorSlide(event) {
+            if (event) { event.stopPropagation(); event.preventDefault(); }
+            const filtered = getFilteredArticles();
+            const majorPool = getMajorOrdered(filtered);
+            if (majorPool.length <= 1) return;
+            currentMajorIndex = (currentMajorIndex + 1) % majorPool.length;
+            renderFeaturedArticle(true);
+        }
+
+        function prevMajorSlide(event) {
+            if (event) { event.stopPropagation(); event.preventDefault(); }
+            const filtered = getFilteredArticles();
+            const majorPool = getMajorOrdered(filtered);
+            if (majorPool.length <= 1) return;
+            currentMajorIndex = (currentMajorIndex - 1 + majorPool.length) % majorPool.length;
+            renderFeaturedArticle(true);
+        }
+
+
+
+        function renderFeaturedArticle(withAnimation = false) {
 
             const section = document.getElementById('featuredSection');
 
@@ -4238,9 +4292,23 @@ async function loadSiheungWeather() {
 
 
 
-            const featured = majorPool[0] || filtered.find(a => a.isFeatured) || filtered[0];
+            // 하이브리드: 최초 접속(새로고침) 시 4개 중 랜덤으로 큰 창 기사 선택
+            if (majorPool.length > 0) {
+                if (currentMajorIndex === -1) {
+                    currentMajorIndex = Math.floor(Math.random() * majorPool.length);
+                } else if (currentMajorIndex >= majorPool.length) {
+                    currentMajorIndex = 0;
+                }
+            } else {
+                currentMajorIndex = 0;
+            }
 
-            const majorNews = majorPool.slice(1, 4);
+
+
+            const featured = (majorPool.length > 0 ? majorPool[currentMajorIndex] : null) || filtered.find(a => a.isFeatured) || filtered[0];
+
+            // 큰 창 기사를 제외한 나머지 주요뉴스들이 우측 서브 목록에 배치됨
+            const majorNews = majorPool.length > 0 ? majorPool.filter((_, idx) => idx !== currentMajorIndex) : [];
 
             const majorIds = new Set(majorPool.map(a => String(a.id)));
 
@@ -4254,23 +4322,48 @@ async function loadSiheungWeather() {
 
 
 
+            // 롤링 인디케이터 (도트 및 좌우 넘김 버튼)
+            const indicatorHtml = majorPool.length > 1 ? `
+                <div class="inline-flex items-center gap-1.5 ml-3 bg-slate-100/90 px-2 py-0.5 rounded-full border border-slate-200">
+                    <button type="button" onclick="prevMajorSlide(event)" class="text-slate-400 hover:text-slate-700 text-xs px-0.5 transition" title="이전 주요뉴스">
+                        <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                    </button>
+                    <div class="flex items-center gap-1">
+                        ${majorPool.map((_, idx) => `
+                            <button type="button" onclick="selectMajorSlide(${idx})" class="h-1.5 rounded-full transition-all duration-300 ${idx === currentMajorIndex ? 'w-4 bg-brand-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'}" title="${idx + 1}번 주요뉴스 보기"></button>
+                        `).join('')}
+                    </div>
+                    <button type="button" onclick="nextMajorSlide(event)" class="text-slate-400 hover:text-slate-700 text-xs px-0.5 transition" title="다음 주요뉴스">
+                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                </div>
+            ` : '';
+
+
+
             section.innerHTML = `
 
                 <div class="featured-news-shell">
 
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
 
-                        <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'major', '${featured.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'major', '${featured.id}')" class="news-dropzone lg:col-span-6 bg-white group pr-0 lg:pr-5 cursor-move">
+                        <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'major', '${featured.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'major', '${featured.id}')" onmouseenter="pauseMajorRolling()" onmouseleave="resumeMajorRolling()" class="news-dropzone lg:col-span-6 bg-white group pr-0 lg:pr-5 cursor-move">
 
                             <div class="flex items-end justify-between mb-3 pb-1">
 
-                                <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">주요뉴스</h2>
+                                <div class="flex items-center">
+                                    <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">주요뉴스</h2>
+                                    ${indicatorHtml}
+                                </div>
 
-                                <span class="text-xs font-bold text-slate-400">${majorPool.length}/4</span>
+                                <div class="flex items-center gap-2">
+                                    ${majorPool.length > 1 ? `<span class="text-[11px] font-medium text-slate-400 hidden sm:inline-flex items-center gap-1"><i class="fa-solid fa-rotate text-[10px]"></i> 6초 자동순환</span>` : ''}
+                                    <span class="text-xs font-bold text-slate-400">${majorPool.length > 0 ? (currentMajorIndex + 1) + '/' + majorPool.length : '0/4'}</span>
+                                </div>
 
                             </div>
 
-                            <div class="relative h-[280px] sm:h-[320px] lg:h-[340px] bg-slate-100 overflow-hidden rounded-lg">
+                            <div class="relative h-[280px] sm:h-[320px] lg:h-[340px] bg-slate-100 overflow-hidden rounded-lg ${withAnimation ? 'featured-fade' : ''}">
 
                                 <a href="${featured.url}" target="_blank" rel="noopener noreferrer" draggable="false" class="block w-full h-full">
 
@@ -4320,7 +4413,7 @@ async function loadSiheungWeather() {
 
                             </div>
 
-                            <div class="pt-4">
+                            <div class="pt-4 ${withAnimation ? 'featured-fade' : ''}">
 
                                 <div class="text-xs font-semibold text-red-600 mb-2">${featured.category || featured.press}</div>
 
@@ -4338,7 +4431,7 @@ async function loadSiheungWeather() {
 
 
 
-                        <div class="news-dropzone lg:col-span-3 border-l border-slate-200 px-0 lg:px-5 mt-7 lg:mt-0 space-y-2.5" ondragover="allowZoneDrop(event)" ondragleave="leaveZoneDrop(event)" ondrop="dropNewsZone(event, 'major')">
+                        <div class="news-dropzone lg:col-span-3 border-l border-slate-200 px-0 lg:px-5 mt-7 lg:mt-0 space-y-2.5" onmouseenter="pauseMajorRolling()" onmouseleave="resumeMajorRolling()" ondragover="allowZoneDrop(event)" ondragleave="leaveZoneDrop(event)" ondrop="dropNewsZone(event, 'major')">
 
                             ${majorNews.length ? majorNews.map((item, idx) => `
 
