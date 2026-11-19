@@ -3746,8 +3746,6 @@ async function loadSiheungWeather() {
 
             initTicker();
 
-            initMajorRolling();
-
         }
 
 
@@ -4218,33 +4216,13 @@ async function loadSiheungWeather() {
 
 
 
-        // ===== 주요뉴스 하이브리드(접속 시 랜덤 + 일정시간 자동 순환 롤링) 시스템 =====
-        let currentMajorIndex = -1; // -1: 접속 시 랜덤 선정 대기
-        let majorRollingTimer = null;
-        let isMajorRollingPaused = false;
-
-        function initMajorRolling() {
-            if (majorRollingTimer) return;
-            majorRollingTimer = setInterval(() => {
-                if (isMajorRollingPaused || isAdmin) return;
-                const filtered = getFilteredArticles();
-                const majorPool = getMajorOrdered(filtered);
-                if (majorPool.length <= 1) return;
-                currentMajorIndex = (currentMajorIndex + 1) % majorPool.length;
-                renderFeaturedArticle(true);
-            }, 6000); // 6초마다 다음 주요뉴스로 순환
-        }
-
-        function pauseMajorRolling() {
-            isMajorRollingPaused = true;
-        }
-
-        function resumeMajorRolling() {
-            isMajorRollingPaused = false;
-        }
+        // ===== 주요뉴스: 접속/새로고침할 때마다 큰 창 기사 순환 교체 시스템 =====
+        const STORAGE_MAJOR_SLIDE_KEY = 'siheung_last_major_slide_idx';
+        let currentMajorIndex = -1; // -1: 최초 로드 시 직전 방문 기록 확인 후 결정
 
         function selectMajorSlide(index) {
             currentMajorIndex = index;
+            try { localStorage.setItem(STORAGE_MAJOR_SLIDE_KEY, String(index)); } catch (e) {}
             renderFeaturedArticle(true);
         }
 
@@ -4254,6 +4232,7 @@ async function loadSiheungWeather() {
             const majorPool = getMajorOrdered(filtered);
             if (majorPool.length <= 1) return;
             currentMajorIndex = (currentMajorIndex + 1) % majorPool.length;
+            try { localStorage.setItem(STORAGE_MAJOR_SLIDE_KEY, String(currentMajorIndex)); } catch (e) {}
             renderFeaturedArticle(true);
         }
 
@@ -4263,6 +4242,7 @@ async function loadSiheungWeather() {
             const majorPool = getMajorOrdered(filtered);
             if (majorPool.length <= 1) return;
             currentMajorIndex = (currentMajorIndex - 1 + majorPool.length) % majorPool.length;
+            try { localStorage.setItem(STORAGE_MAJOR_SLIDE_KEY, String(currentMajorIndex)); } catch (e) {}
             renderFeaturedArticle(true);
         }
 
@@ -4292,10 +4272,22 @@ async function loadSiheungWeather() {
 
 
 
-            // 하이브리드: 최초 접속(새로고침) 시 4개 중 랜덤으로 큰 창 기사 선택
+            // 같은 사람이 접속하거나 새로고침할 때마다 매번 다음 주요뉴스로 큰 창 기사 변경
             if (majorPool.length > 0) {
                 if (currentMajorIndex === -1) {
-                    currentMajorIndex = Math.floor(Math.random() * majorPool.length);
+                    let lastIdx = -1;
+                    try {
+                        const saved = localStorage.getItem(STORAGE_MAJOR_SLIDE_KEY);
+                        if (saved !== null) lastIdx = parseInt(saved, 10);
+                    } catch (e) {}
+
+                    if (isNaN(lastIdx) || lastIdx < 0 || lastIdx >= majorPool.length) {
+                        currentMajorIndex = Math.floor(Math.random() * majorPool.length);
+                    } else {
+                        // 직전에 본 기사의 다음 기사로 순환 (들어올 때마다 새로운 기사 노출)
+                        currentMajorIndex = (lastIdx + 1) % majorPool.length;
+                    }
+                    try { localStorage.setItem(STORAGE_MAJOR_SLIDE_KEY, String(currentMajorIndex)); } catch (e) {}
                 } else if (currentMajorIndex >= majorPool.length) {
                     currentMajorIndex = 0;
                 }
@@ -4322,7 +4314,7 @@ async function loadSiheungWeather() {
 
 
 
-            // 롤링 인디케이터 (도트 및 좌우 넘김 버튼)
+            // 인디케이터 (도트 및 좌우 수동 넘김 버튼)
             const indicatorHtml = majorPool.length > 1 ? `
                 <div class="inline-flex items-center gap-1.5 ml-3 bg-slate-100/90 px-2 py-0.5 rounded-full border border-slate-200">
                     <button type="button" onclick="prevMajorSlide(event)" class="text-slate-400 hover:text-slate-700 text-xs px-0.5 transition" title="이전 주요뉴스">
@@ -4347,7 +4339,7 @@ async function loadSiheungWeather() {
 
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
 
-                        <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'major', '${featured.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'major', '${featured.id}')" onmouseenter="pauseMajorRolling()" onmouseleave="resumeMajorRolling()" class="news-dropzone lg:col-span-6 bg-white group pr-0 lg:pr-5 cursor-move">
+                        <article draggable="${isAdmin}" ondragstart="startNewsDrag(event, 'major', '${featured.id}')" ondragend="endNewsDrag(event)" ondragover="allowNewsDrop(event)" ondrop="dropNews(event, 'major', '${featured.id}')" class="news-dropzone lg:col-span-6 bg-white group pr-0 lg:pr-5 cursor-move">
 
                             <div class="flex items-end justify-between mb-3 pb-1">
 
@@ -4357,7 +4349,6 @@ async function loadSiheungWeather() {
                                 </div>
 
                                 <div class="flex items-center gap-2">
-                                    ${majorPool.length > 1 ? `<span class="text-[11px] font-medium text-slate-400 hidden sm:inline-flex items-center gap-1"><i class="fa-solid fa-rotate text-[10px]"></i> 6초 자동순환</span>` : ''}
                                     <span class="text-xs font-bold text-slate-400">${majorPool.length > 0 ? (currentMajorIndex + 1) + '/' + majorPool.length : '0/4'}</span>
                                 </div>
 
@@ -4431,7 +4422,7 @@ async function loadSiheungWeather() {
 
 
 
-                        <div class="news-dropzone lg:col-span-3 border-l border-slate-200 px-0 lg:px-5 mt-7 lg:mt-0 space-y-2.5" onmouseenter="pauseMajorRolling()" onmouseleave="resumeMajorRolling()" ondragover="allowZoneDrop(event)" ondragleave="leaveZoneDrop(event)" ondrop="dropNewsZone(event, 'major')">
+                        <div class="news-dropzone lg:col-span-3 border-l border-slate-200 px-0 lg:px-5 mt-7 lg:mt-0 space-y-2.5" ondragover="allowZoneDrop(event)" ondragleave="leaveZoneDrop(event)" ondrop="dropNewsZone(event, 'major')">
 
                             ${majorNews.length ? majorNews.map((item, idx) => `
 
