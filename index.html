@@ -4220,35 +4220,9 @@ async function loadSiheungWeather() {
         const STORAGE_MAJOR_SLIDE_KEY = 'siheung_last_major_slide_idx';
         let currentMajorIndex = -1; // -1: 최초 로드 시 직전 방문 기록 확인 후 결정
 
-        function selectMajorSlide(index) {
-            currentMajorIndex = index;
-            try { localStorage.setItem(STORAGE_MAJOR_SLIDE_KEY, String(index)); } catch (e) {}
-            renderFeaturedArticle(true);
-        }
-
-        function nextMajorSlide(event) {
-            if (event) { event.stopPropagation(); event.preventDefault(); }
-            const filtered = getFilteredArticles();
-            const majorPool = getMajorOrdered(filtered);
-            if (majorPool.length <= 1) return;
-            currentMajorIndex = (currentMajorIndex + 1) % majorPool.length;
-            try { localStorage.setItem(STORAGE_MAJOR_SLIDE_KEY, String(currentMajorIndex)); } catch (e) {}
-            renderFeaturedArticle(true);
-        }
-
-        function prevMajorSlide(event) {
-            if (event) { event.stopPropagation(); event.preventDefault(); }
-            const filtered = getFilteredArticles();
-            const majorPool = getMajorOrdered(filtered);
-            if (majorPool.length <= 1) return;
-            currentMajorIndex = (currentMajorIndex - 1 + majorPool.length) % majorPool.length;
-            try { localStorage.setItem(STORAGE_MAJOR_SLIDE_KEY, String(currentMajorIndex)); } catch (e) {}
-            renderFeaturedArticle(true);
-        }
 
 
-
-        function renderFeaturedArticle(withAnimation = false) {
+        function renderFeaturedArticle() {
 
             const section = document.getElementById('featuredSection');
 
@@ -4314,25 +4288,6 @@ async function loadSiheungWeather() {
 
 
 
-            // 인디케이터 (도트 및 좌우 수동 넘김 버튼)
-            const indicatorHtml = majorPool.length > 1 ? `
-                <div class="inline-flex items-center gap-1.5 ml-3 bg-slate-100/90 px-2 py-0.5 rounded-full border border-slate-200">
-                    <button type="button" onclick="prevMajorSlide(event)" class="text-slate-400 hover:text-slate-700 text-xs px-0.5 transition" title="이전 주요뉴스">
-                        <i class="fa-solid fa-chevron-left text-[10px]"></i>
-                    </button>
-                    <div class="flex items-center gap-1">
-                        ${majorPool.map((_, idx) => `
-                            <button type="button" onclick="selectMajorSlide(${idx})" class="h-1.5 rounded-full transition-all duration-300 ${idx === currentMajorIndex ? 'w-4 bg-brand-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'}" title="${idx + 1}번 주요뉴스 보기"></button>
-                        `).join('')}
-                    </div>
-                    <button type="button" onclick="nextMajorSlide(event)" class="text-slate-400 hover:text-slate-700 text-xs px-0.5 transition" title="다음 주요뉴스">
-                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                    </button>
-                </div>
-            ` : '';
-
-
-
             section.innerHTML = `
 
                 <div class="featured-news-shell">
@@ -4343,18 +4298,13 @@ async function loadSiheungWeather() {
 
                             <div class="flex items-end justify-between mb-3 pb-1">
 
-                                <div class="flex items-center">
-                                    <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">주요뉴스</h2>
-                                    ${indicatorHtml}
-                                </div>
+                                <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">주요뉴스</h2>
 
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs font-bold text-slate-400">${majorPool.length > 0 ? (currentMajorIndex + 1) + '/' + majorPool.length : '0/4'}</span>
-                                </div>
+                                <span class="text-xs font-bold text-slate-400">${majorPool.length}/4</span>
 
                             </div>
 
-                            <div class="relative h-[280px] sm:h-[320px] lg:h-[340px] bg-slate-100 overflow-hidden rounded-lg ${withAnimation ? 'featured-fade' : ''}">
+                            <div class="relative h-[280px] sm:h-[320px] lg:h-[340px] bg-slate-100 overflow-hidden rounded-lg">
 
                                 <a href="${featured.url}" target="_blank" rel="noopener noreferrer" draggable="false" class="block w-full h-full">
 
@@ -4404,7 +4354,7 @@ async function loadSiheungWeather() {
 
                             </div>
 
-                            <div class="pt-4 ${withAnimation ? 'featured-fade' : ''}">
+                            <div class="pt-4">
 
                                 <div class="text-xs font-semibold text-red-600 mb-2">${featured.category || featured.press}</div>
 
