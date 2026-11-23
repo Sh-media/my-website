@@ -1186,6 +1186,8 @@
 
                                 <option value="기획/칼럼">기획/칼럼</option>
 
+                                <option value="사설 ㅣ칼럼">사설 ㅣ칼럼</option>
+
                             </select>
 
                         </div>
@@ -5393,7 +5395,7 @@ function cancelBannerEdit() {
 
                         <select data-category-id="${String(item.id).replace(/"/g, '&quot;')}" title="카테고리 변경" class="article-category-select bg-white border border-slate-300 text-[10px] text-slate-700 rounded-md px-1.5 py-1">
 
-                            ${['시정/행정','사회/지역','교육','문화/예술','기획/칼럼'].map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                            ${['시정/행정','사회/지역','교육','문화/예술','기획/칼럼','사설 ㅣ칼럼'].map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
 
                         </select>
 
