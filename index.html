@@ -2351,7 +2351,7 @@
 
 
                             <select id="inputCategory" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-brand-600 focus:border-brand-600 block w-full p-2.5">
-                                <option value="시정ㅣ행정">시정ㅣ행정</option>
+                                <option value="정치ㅣ행정">정치ㅣ행정</option>
                                 <option value="사회ㅣ지역">사회ㅣ지역</option>
                                 <option value="교육">교육</option>
                                 <option value="문화ㅣ예술">문화ㅣ예술</option>
@@ -6297,11 +6297,11 @@ async function loadArticlesFromServer() {
 
 
             if (typeof a.isMajor !== 'boolean') a.isMajor = !!a.isFeatured;
-                            if (a.category === '시정/행정' || a.category === '시정') a.category = '시정ㅣ행정';
+                            if (a.category === '시정/행정' || a.category === '시정' || a.category === '시정ㅣ행정' || a.category === '정치/행정') a.category = '정치ㅣ행정';
                             else if (a.category === '사회/지역' || a.category === '지역소식') a.category = '사회ㅣ지역';
                             else if (a.category === '문화/예술') a.category = '문화ㅣ예술';
                             else if (a.category === '기획/칼럼' || a.category === '기획/컬럼' || a.category === '사설 ㅣ칼럼' || a.category === '사설/칼럼' || a.category === '사설ㅣ칼럼' || a.category === '사설 ㅣ컬럼') a.category = '사설ㅣ컬럼';
-                            else if (!a.category) a.category = '시정ㅣ행정';
+                            else if (!a.category) a.category = '정치ㅣ행정';
 
 
 
@@ -6898,11 +6898,11 @@ async function loadBannersFromServer() {
 
 
                             if (typeof a.isMajor !== 'boolean') a.isMajor = !!a.isFeatured;
-                            if (a.category === '시정/행정' || a.category === '시정') a.category = '시정ㅣ행정';
+                            if (a.category === '시정/행정' || a.category === '시정' || a.category === '시정ㅣ행정' || a.category === '정치/행정') a.category = '정치ㅣ행정';
                             else if (a.category === '사회/지역' || a.category === '지역소식') a.category = '사회ㅣ지역';
                             else if (a.category === '문화/예술') a.category = '문화ㅣ예술';
                             else if (a.category === '기획/칼럼' || a.category === '기획/컬럼' || a.category === '사설 ㅣ칼럼' || a.category === '사설/칼럼' || a.category === '사설ㅣ칼럼' || a.category === '사설 ㅣ컬럼') a.category = '사설ㅣ컬럼';
-                            else if (!a.category) a.category = '시정ㅣ행정';
+                            else if (!a.category) a.category = '정치ㅣ행정';
 
 
 
@@ -9012,7 +9012,7 @@ async function loadSiheungWeather() {
 
 
 
-                                                <span>${item.category || '시정ㅣ행정'}</span>
+                                                <span>${item.category || '정치ㅣ행정'}</span>
 
 
 
@@ -10780,7 +10780,7 @@ function cancelBannerEdit() {
 
 
 
-                            ${['시정ㅣ행정','사회ㅣ지역','교육','문화ㅣ예술','사설ㅣ컬럼'].map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                            ${['정치ㅣ행정','사회ㅣ지역','교육','문화ㅣ예술','사설ㅣ컬럼'].map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
 
 
 
@@ -11116,7 +11116,7 @@ function cancelBannerEdit() {
 
 
 
-            document.getElementById('inputCategory').value = article.category || '시정ㅣ행정';
+            document.getElementById('inputCategory').value = article.category || '정치ㅣ행정';
 
 
 
