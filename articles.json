@@ -8,9 +8,10 @@
     "category": "정치ㅣ행정",
     "date": "2026-11-26",
     "summary": "시흥시 대표 관광자원인 갯골생태공원이 단순한 유지·관리 중심의 공원 운영에서 벗어나 수익을 창출하고 지역경제 활성화에 기여하는 공원으로 거듭나야 한다는 지적이 제기됐다.\n\n \n\n송미희 의원은 25일 시흥도시공사를 대상으로 한 행정사무감사에서 갯골생태공원의 운영 실태를 지적하며, 방문객 유치에만 집중할 것이 아니라 실질적인 수익 창출 방안을 마련하고 지역 주민에게 혜택이 돌아가는 운영 체계를 구축해야 한다고 강조했다.",
-    "isFeatured": false,
-    "isMajor": false,
-    "latestOrder": 0
+    "isFeatured": true,
+    "isMajor": true,
+    "latestOrder": 0,
+    "majorOrder": 1
   },
   {
     "id": "art-1795682408479",
@@ -21,7 +22,7 @@
     "category": "정치ㅣ행정",
     "date": "2026-11-26",
     "summary": "경기 시흥시가 대상포진 백신 수요 예측에 실패해 수백회분이 재고로 남은 것으로 드러나 백신 구매와 재고 관리의 부실에 대한 지적이 시의회에서 제기됐다\n\n26일 시흥시의회에 따르면 김수연 의원은 지난 25일 질병관리과 행정사무감사에서 대상포진 백신 구매량과 접종 실적을 대조하며 재고관리 문제를 집중 추궁했다.\n\n김 의원이 제시한 백신 입·출고 및 재고 현황에 따르면 시는 2023년 말 대상포진 백신 908회분을 구매했다. 이 가운데 300회분을 보건지소로 이관했지만 두 기관 모두 접종 실적은 0건이었다.",
-    "isFeatured": true,
+    "isFeatured": false,
     "isMajor": true,
     "latestOrder": 0,
     "majorOrder": 0
@@ -38,7 +39,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 1,
-    "majorOrder": 1
+    "majorOrder": 2
   },
   {
     "id": "art-1795590238976",
@@ -79,7 +80,7 @@
     "isFeatured": false,
     "isMajor": true,
     "latestOrder": 1,
-    "majorOrder": 2
+    "majorOrder": 3
   },
   {
     "id": "art-1795418585526",
